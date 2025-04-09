@@ -1,0 +1,39 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "DS2023 Final Project (Rename)"
+  author: "Jessica Ni, Maya Uwaydat, Wissal Khlouf"
+  favicon: logo.png
+  description: final project
+  keyword: data science, aclr
+  # url:
+  sidebar:
+    logo: logo.png
+    search: true
+  #  repo-url: insert our repo here
+    repo-branch: master
+    image: logo.png
+
+  chapters:
+    - index.qmd
+    - datacleaning.qmd
+    - eda.qmd
+    - datavis.qmd
+    - datadictionary.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    code-fold: false
+    # backgroundcolor: "FFFFFF"
+  pdf:
+    documentclass: scrreprt
+
+
+
