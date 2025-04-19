@@ -1,0 +1,117 @@
+---
+title: Data Cleaning
+jupyter: python3
+---
+
+
+
+#### The purpose of this section is to prepare the data for analysis and graph making. This includes choosing relevant variables, cleaning the dataset, and handling missing values.
+
+**Note:** The data used in this project is simulated and does not contain real patient information.
+
+## Loading Raw Data
+
+```{python}
+# import libraries
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import seaborn as sns
+
+# Load in data
+data = pd.read_csv('../data/aclr_data.csv')
+data.head()
+```
+
+After loading in the data and taking a first glance, we notice that there are many variables and missing values. This is why we will select for variables related to our interest, and in the later steps handle missing values.
+
+## Variable Selection
+
+For our final analysis, we focus on the following main variables: 
+
+- acl_rsi: Anterior cruciate ligament return-to-sport after injury survey
+  
+- lsi_ext_isok_60: Limb symmetry index for isokinetic extension strength at a sixty-degree angle
+  
+- lsi_flex_isok_60: Limb symmetry index for isokinetic flexion strength at a sixty-degree angle
+  
+- sh_lsi: Single hop limb symmetry index
+
+There are additional patient related variables included as well. These are record id, event name, sex, and age. 
+
+Variables unrelated to the outcome of interest were excluded to simplify the dataset.
+
+```{python}
+# Let's keep only the columns we are interested in
+data = data[['record_id', 'redcap_event_name', 'sex_dashboard', 'age', 'age_group', 'acl_rsi', 'lsi_ext_isok_60', 'lsi_flex_isok_60', 'sh_lsi']]
+```
+
+## Handling Missing Data
+
+First let's look at a heatmap to visually understand where the missing data lies. The yellow values show missing information.
+
+```{python}
+sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)
+```
+
+Record id and event description have no missing values. It seems that many of the numerical measurements are missing. Due to site-specific data collection differences, there are more missing values for tests relating to 60 degrees/sec. In relation to our dataset, this includes two variables: LSI for isokinetic extension and LSI for isokinetic flexion strength. We decided to drop rows with missing values in these columns. 
+
+```{python}
+data = data.dropna(subset=['lsi_ext_isok_60', 'lsi_flex_isok_60'])
+```
+
+Additionally, our dataset is longitudinal and patients come in at irregular time intervals. There are multiple entries per patient, but some variables like sex are not recorded each visit. Thus, we can fill in data that is already known based on the subject's first entry.
+
+```{python}
+# We can fill in known cells, such as the sex based on the first occurrence 
+data['sex_dashboard'] = data.groupby('record_id')['sex_dashboard'].transform('first')
+data['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')
+```
+
+Next, we noticed that within the event column, the first event called baseline_arm_1 only includes a patient's sex and has missing values for everything else. So, we will remove all rows where this is the event.
+
+```{python}
+data = data[data['redcap_event_name'] != 'baseline_arm_1']
+```
+
+Let's look at the heatmap again and see how our missing values look!
+
+```{python}
+sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)
+# It looks much better
+```
+
+It looks like most of our values are filled, asides from two variables. Let's look at the counts for each variable to decide whether or not to drop the missing values for acl_rsi and sh_lsi as well.
+
+```{python}
+pd.DataFrame({'Count': data.count()})
+```
+
+```{python}
+# Total rows in original dataset
+print(f"Total rows before drop: {len(data)}")
+
+# Rows remaining if we drop NA from acl_rsi and sh_lsi
+print(f"Rows after dropping acl_rsi and sh_lsi NAs: {len(data.dropna(subset=['acl_rsi', 'sh_lsi']))}")
+
+# Rows lost
+print(f"Rows lost: {len(data) - len(data.dropna(subset=['acl_rsi', 'sh_lsi']))}")
+```
+
+The filled variables have a count of mostly 2222. Two variables, however, have notably fewer values (1624 and 1381 respectfully). Dropping these variables would significantly reduce the number of patients available for analysis, by around half. Also, due to differences in data collection and patients not doing every test each visit, the remaining missing values is due to a structural reason. For these reasons, we have decided to retain the remaining two variables as is.
+
+## Last Checkups
+Let's make sure all the columns are the correct data type.
+
+```{python}
+pd.DataFrame({'Dtype': data.dtypes})
+# It seems that all categorical variables and numeric variables are the correct type
+```
+
+Let's make sure nothing is duplicated.
+
+```{python}
+data.duplicated().value_counts()
+# All false!
+```
+

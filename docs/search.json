@@ -8,5 +8,55 @@
     "crumbs": [
       "Preface"
     ]
+  },
+  {
+    "objectID": "EDA/datacleaning_forbook.html",
+    "href": "EDA/datacleaning_forbook.html",
+    "title": "Data Cleaning",
+    "section": "",
+    "text": "The purpose of this section is to prepare the data for analysis and graph making. This includes choosing relevant variables, cleaning the dataset, and handling missing values.\nNote: The data used in this project is simulated and does not contain real patient information.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "EDA/datacleaning_forbook.html#variable-selection",
+    "href": "EDA/datacleaning_forbook.html#variable-selection",
+    "title": "Data Cleaning",
+    "section": "Variable Selection",
+    "text": "Variable Selection\nFor our final analysis, we focus on the following main variables:\n\nacl_rsi: Anterior cruciate ligament return-to-sport after injury survey\nlsi_ext_isok_60: Limb symmetry index for isokinetic extension strength at a sixty-degree angle\nlsi_flex_isok_60: Limb symmetry index for isokinetic flexion strength at a sixty-degree angle\nsh_lsi: Single hop limb symmetry index\n\nThere are additional patient related variables included as well. These are record id, event name, sex, and age.\nVariables unrelated to the outcome of interest were excluded to simplify the dataset.\n\n# Let's keep only the columns we are interested in\ndata = data[['record_id', 'redcap_event_name', 'sex_dashboard', 'age', 'age_group', 'acl_rsi', 'lsi_ext_isok_60', 'lsi_flex_isok_60', 'sh_lsi']]",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "EDA/datacleaning_forbook.html#handling-missing-data",
+    "href": "EDA/datacleaning_forbook.html#handling-missing-data",
+    "title": "Data Cleaning",
+    "section": "Handling Missing Data",
+    "text": "Handling Missing Data\nFirst let’s look at a heatmap to visually understand where the missing data lies. The yellow values show missing information.\n\nsns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)\n\n\n\n\n\n\n\n\nRecord id and event description have no missing values. It seems that many of the numerical measurements are missing. Due to site-specific data collection differences, there are more missing values for tests relating to 60 degrees/sec. In relation to our dataset, this includes two variables: LSI for isokinetic extension and LSI for isokinetic flexion strength. We decided to drop rows with missing values in these columns.\n\ndata = data.dropna(subset=['lsi_ext_isok_60', 'lsi_flex_isok_60'])\n\nAdditionally, our dataset is longitudinal and patients come in at irregular time intervals. There are multiple entries per patient, but some variables like sex are not recorded each visit. Thus, we can fill in data that is already known based on the subject’s first entry.\n\n# We can fill in known cells, such as the sex based on the first occurrence \ndata['sex_dashboard'] = data.groupby('record_id')['sex_dashboard'].transform('first')\ndata['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')\n\nNext, we noticed that within the event column, the first event called baseline_arm_1 only includes a patient’s sex and has missing values for everything else. So, we will remove all rows where this is the event.\n\ndata = data[data['redcap_event_name'] != 'baseline_arm_1']\n\nLet’s look at the heatmap again and see how our missing values look!\n\nsns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)\n# It looks much better\n\n\n\n\n\n\n\n\nIt looks like most of our values are filled, asides from two variables. Let’s look at the counts for each variable to decide whether or not to drop the missing values for acl_rsi and sh_lsi as well.\n\npd.DataFrame({'Count': data.count()})\n\n\n\n\n\n\n\n\nCount\n\n\n\n\nrecord_id\n2222\n\n\nredcap_event_name\n2222\n\n\nsex_dashboard\n2222\n\n\nage\n2221\n\n\nage_group\n2221\n\n\nacl_rsi\n1624\n\n\nlsi_ext_isok_60\n2222\n\n\nlsi_flex_isok_60\n2222\n\n\nsh_lsi\n1381\n\n\n\n\n\n\n\n\n# Total rows in original dataset\nprint(f\"Total rows before drop: {len(data)}\")\n\n# Rows remaining if we drop NA from acl_rsi and sh_lsi\nprint(f\"Rows after dropping acl_rsi and sh_lsi NAs: {len(data.dropna(subset=['acl_rsi', 'sh_lsi']))}\")\n\n# Rows lost\nprint(f\"Rows lost: {len(data) - len(data.dropna(subset=['acl_rsi', 'sh_lsi']))}\")\n\nTotal rows before drop: 2222\nRows after dropping acl_rsi and sh_lsi NAs: 1229\nRows lost: 993\n\n\nThe filled variables have a count of mostly 2222. Two variables, however, have notably fewer values (1624 and 1381 respectfully). Dropping these variables would significantly reduce the number of patients available for analysis, by around half. Also, due to differences in data collection and patients not doing every test each visit, the remaining missing values is due to a structural reason. For these reasons, we have decided to retain the remaining two variables as is.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "EDA/datacleaning_forbook.html#last-checkups",
+    "href": "EDA/datacleaning_forbook.html#last-checkups",
+    "title": "Data Cleaning",
+    "section": "Last Checkups",
+    "text": "Last Checkups\nLet’s make sure all the columns are the correct data type.\n\npd.DataFrame({'Dtype': data.dtypes})\n# It seems that all categorical variables and numeric variables are the correct type\n\n\n\n\n\n\n\n\nDtype\n\n\n\n\nrecord_id\nint64\n\n\nredcap_event_name\nobject\n\n\nsex_dashboard\nobject\n\n\nage\nfloat64\n\n\nage_group\nfloat64\n\n\nacl_rsi\nfloat64\n\n\nlsi_ext_isok_60\nfloat64\n\n\nlsi_flex_isok_60\nfloat64\n\n\nsh_lsi\nfloat64\n\n\n\n\n\n\n\nLet’s make sure nothing is duplicated.\n\ndata.duplicated().value_counts()\n# All false!\n\nFalse    2222\nName: count, dtype: int64",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "EDA/datacleaning_forbook.html#loading-raw-data",
+    "href": "EDA/datacleaning_forbook.html#loading-raw-data",
+    "title": "Data Cleaning",
+    "section": "Loading Raw Data",
+    "text": "Loading Raw Data\n\n# import libraries\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport numpy as np\nimport seaborn as sns\n\n# Load in data\ndata = pd.read_csv('../data/aclr_data.csv')\ndata.head()\n\n\n\n\n\n\n\n\nrecord_id\nredcap_event_name\nredcap_repeat_instrument\nsex_dashboard\ngraft_dashboard2\nmed_meniscus\nlat_meniscus\nlat_stab\nphysis\nvisit_sex\n...\nlsi_flex_mvic_60\nacl_ext_isok_60\ncon_ext_isok_60\nlsi_ext_isok_60\nacl_flex_isok_60\ncon_flex_isok_60\nlsi_flex_isok_60\nstrength_testing_complete\nrts\nrts_tss\n\n\n\n\n0\n1\nbaseline_arm_1\nNaN\nMale\nOther\nNaN\nNaN\nNaN\nNaN\nNaN\n...\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n1\n1\nvisit_1_arm_1\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nMale\n...\nNaN\n2.57\n2.92\n87.86\n1.50\n1.45\n103.32\n2.0\nNaN\nNaN\n\n\n2\n1\nlong_term_outcomes_arm_1\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n...\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n3.0\n70.0\n\n\n3\n2\nbaseline_arm_1\nNaN\nFemale\nHS autograft\n1.0\n3.0\n1.0\nNaN\nNaN\n...\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\n2\nvisit_1_arm_1\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nFemale\n...\nNaN\n0.97\n2.16\n45.00\n0.88\n1.20\n72.98\n2.0\nNaN\nNaN\n\n\n\n\n5 rows × 63 columns\n\n\n\nAfter loading in the data and taking a first glance, we notice that there are many variables and missing values. This is why we will select for variables related to our interest, and in the later steps handle missing values.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
   }
 ]

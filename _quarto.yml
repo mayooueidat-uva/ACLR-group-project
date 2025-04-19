@@ -18,7 +18,7 @@ book:
 
   chapters:
     - index.qmd
-    - datacleaning.qmd
+    - ./EDA/datacleaning_forbook.qmd
     - eda.qmd
     - datavis.qmd
     - datadictionary.qmd
