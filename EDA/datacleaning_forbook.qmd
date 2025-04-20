@@ -3,7 +3,7 @@ title: Data Cleaning
 jupyter: python3
 ---
 
-
+# Data Cleaning
 
 #### The purpose of this section is to prepare the data for analysis and graph making. This includes choosing relevant variables, cleaning the dataset, and handling missing values.
 
