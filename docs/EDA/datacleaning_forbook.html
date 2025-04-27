@@ -191,7 +191,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#loading-raw-data" id="toc-loading-raw-data" class="nav-link active" data-scroll-target="#loading-raw-data">Loading Raw Data</a></li>
   <li><a href="#variable-selection" id="toc-variable-selection" class="nav-link" data-scroll-target="#variable-selection">Variable Selection</a></li>
   <li><a href="#handling-missing-data" id="toc-handling-missing-data" class="nav-link" data-scroll-target="#handling-missing-data">Handling Missing Data</a></li>
+  <li><a href="#adding-new-variables" id="toc-adding-new-variables" class="nav-link" data-scroll-target="#adding-new-variables">Adding New Variables</a></li>
   <li><a href="#last-checkups" id="toc-last-checkups" class="nav-link" data-scroll-target="#last-checkups">Last Checkups</a></li>
+  <li><a href="#export-the-datasets" id="toc-export-the-datasets" class="nav-link" data-scroll-target="#export-the-datasets">Export the datasets</a></li>
   </ul>
 </nav>
     </div>
@@ -223,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="loading-raw-data" class="level2">
 <h2 class="anchored" data-anchor-id="loading-raw-data">Loading Raw Data</h2>
-<div id="062c40de" class="cell" data-execution_count="1">
+<div id="80d753d8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -405,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>There are additional patient related variables included as well. These are record id, event name, sex, and age.</p>
 <p>Variables unrelated to the outcome of interest were excluded to simplify the dataset.</p>
-<div id="65eba619" class="cell" data-execution_count="2">
+<div id="42cd1139" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's keep only the columns we are interested in</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[[<span class="st">'record_id'</span>, <span class="st">'redcap_event_name'</span>, <span class="st">'sex_dashboard'</span>, <span class="st">'age'</span>, <span class="st">'age_group'</span>, <span class="st">'acl_rsi'</span>, <span class="st">'lsi_ext_isok_60'</span>, <span class="st">'lsi_flex_isok_60'</span>, <span class="st">'sh_lsi'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -413,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="handling-missing-data" class="level2">
 <h2 class="anchored" data-anchor-id="handling-missing-data">Handling Missing Data</h2>
 <p>First let’s look at a heatmap to visually understand where the missing data lies. The yellow values show missing information.</p>
-<div id="2682ffc9" class="cell" data-execution_count="3">
+<div id="cce1f3dd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.heatmap(data.isnull(), cmap<span class="op">=</span><span class="st">'viridis'</span>, yticklabels<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -424,21 +426,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Record id and event description have no missing values. It seems that many of the numerical measurements are missing. Due to site-specific data collection differences, there are more missing values for tests relating to 60 degrees/sec.&nbsp;In relation to our dataset, this includes two variables: LSI for isokinetic extension and LSI for isokinetic flexion strength. We decided to drop rows with missing values in these columns.</p>
-<div id="32d760ff" class="cell" data-execution_count="4">
+<div id="e308307b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.dropna(subset<span class="op">=</span>[<span class="st">'lsi_ext_isok_60'</span>, <span class="st">'lsi_flex_isok_60'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Additionally, our dataset is longitudinal and patients come in at irregular time intervals. There are multiple entries per patient, but some variables like sex are not recorded each visit. Thus, we can fill in data that is already known based on the subject’s first entry.</p>
-<div id="b13fd61e" class="cell" data-execution_count="5">
+<div id="4a86181d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can fill in known cells, such as the sex based on the first occurrence </span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sex_dashboard'</span>] <span class="op">=</span> data.groupby(<span class="st">'record_id'</span>)[<span class="st">'sex_dashboard'</span>].transform(<span class="st">'first'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sex_dashboard'</span>] <span class="op">=</span> data[<span class="st">'sex_dashboard'</span>].fillna(<span class="st">'Unknown'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, we noticed that within the event column, the first event called baseline_arm_1 only includes a patient’s sex and has missing values for everything else. So, we will remove all rows where this is the event.</p>
-<div id="18f14d52" class="cell" data-execution_count="6">
+<div id="2c1f1e45" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[data[<span class="st">'redcap_event_name'</span>] <span class="op">!=</span> <span class="st">'baseline_arm_1'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s look at the heatmap again and see how our missing values look!</p>
-<div id="4c7721b9" class="cell" data-execution_count="7">
+<div id="c02c9eb3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.heatmap(data.isnull(), cmap<span class="op">=</span><span class="st">'viridis'</span>, yticklabels<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It looks much better</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -450,7 +452,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>It looks like most of our values are filled, asides from two variables. Let’s look at the counts for each variable to decide whether or not to drop the missing values for acl_rsi and sh_lsi as well.</p>
-<div id="056a2337" class="cell" data-execution_count="8">
+<div id="a89d4a89" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'Count'</span>: data.count()})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -506,7 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="1f29ee77" class="cell" data-execution_count="9">
+<div id="c8e1c6f3" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total rows in original dataset</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total rows before drop: </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -523,13 +525,43 @@ Rows lost: 993</code></pre>
 </div>
 <p>The filled variables have a count of mostly 2222. Two variables, however, have notably fewer values (1624 and 1381 respectfully). Dropping these variables would significantly reduce the number of patients available for analysis, by around half. Also, due to differences in data collection and patients not doing every test each visit, the remaining missing values is due to a structural reason. For these reasons, we have decided to retain the remaining two variables as is.</p>
 </section>
+<section id="adding-new-variables" class="level2">
+<h2 class="anchored" data-anchor-id="adding-new-variables">Adding New Variables</h2>
+<p>Here, we will create a new dataset that contains the 25th and 75th percentile for each visit. We will use this dataset for some visualizations later on. Additionally, we will add a new column, visit number, to more easily map out “change over time” for later visualizations.</p>
+<div id="77d4c51c" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the 25th and 75th percentile for each visit (1,2,3,4,...)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>flsi_percentiles <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_flex_isok_60'</span>].agg(mean<span class="op">=</span><span class="st">'mean'</span>,q25<span class="op">=</span><span class="st">'quantile'</span>, q75<span class="op">=</span><span class="st">'quantile'</span>).reset_index()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>flsi_percentiles[<span class="st">'q25'</span>] <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_flex_isok_60'</span>].quantile(<span class="fl">0.40</span>).values</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>flsi_percentiles[<span class="st">'q75'</span>] <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_flex_isok_60'</span>].quantile(<span class="fl">0.60</span>).values</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>visit_map <span class="op">=</span> {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_1_arm_1'</span>: <span class="dv">1</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_2_arm_1'</span>: <span class="dv">2</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_3_arm_1'</span>: <span class="dv">3</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_4_arm_1'</span>: <span class="dv">4</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_5_arm_1'</span>: <span class="dv">5</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_6_arm_1'</span>: <span class="dv">6</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_7_arm_1'</span>: <span class="dv">7</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_8_arm_1'</span>: <span class="dv">8</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_9_arm_1'</span>: <span class="dv">9</span>}</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column with just the visit number</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>flsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> flsi_percentiles[<span class="st">'redcap_event_name'</span>].<span class="bu">map</span>(visit_map)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>flsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> pd.to_numeric(flsi_percentiles[<span class="st">'visit_num'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>).astype(<span class="st">'Int64'</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>flsi_percentiles <span class="op">=</span> flsi_percentiles[flsi_percentiles[<span class="st">'redcap_event_name'</span>] <span class="op">!=</span> <span class="st">'data_upload_arm_2'</span>] <span class="co"># remove unneeded values</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># In original dataset, create new column with just the visit number as well</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'visit_num'</span>] <span class="op">=</span> data[<span class="st">'redcap_event_name'</span>].<span class="bu">map</span>(visit_map)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>flsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> pd.to_numeric(flsi_percentiles[<span class="st">'visit_num'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>).astype(<span class="st">'Int64'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="last-checkups" class="level2">
 <h2 class="anchored" data-anchor-id="last-checkups">Last Checkups</h2>
 <p>Let’s make sure all the columns are the correct data type.</p>
-<div id="6c3418bb" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'Dtype'</span>: data.dtypes})</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It seems that all categorical variables and numeric variables are the correct type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="cc159370" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({<span class="st">'Dtype'</span>: data.dtypes})</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It seems that all categorical variables and numeric variables are the correct type</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -577,6 +609,10 @@ Rows lost: 993</code></pre>
 <td data-quarto-table-cell-role="th">sh_lsi</td>
 <td>float64</td>
 </tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">visit_num</td>
+<td>int64</td>
+</tr>
 </tbody>
 </table>
 
@@ -584,13 +620,22 @@ Rows lost: 993</code></pre>
 </div>
 </div>
 <p>Let’s make sure nothing is duplicated.</p>
-<div id="7de0d698" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data.duplicated().value_counts()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># All false!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="e20c668f" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data.duplicated().value_counts()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># All false!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>False    2222
 Name: count, dtype: int64</code></pre>
 </div>
+</div>
+</section>
+<section id="export-the-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="export-the-datasets">Export the datasets</h2>
+<div id="30a2cce7" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Export the datasets</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data.to_csv(<span class="st">'../data/final_data_cleaned.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>flsi_percentiles.to_csv(<span class="st">'../data/percentiles.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

@@ -3,7 +3,7 @@ title: Data Cleaning
 jupyter: python3
 ---
 
-# Data Cleaning
+
 
 #### The purpose of this section is to prepare the data for analysis and graph making. This includes choosing relevant variables, cleaning the dataset, and handling missing values.
 
@@ -100,6 +100,37 @@ print(f"Rows lost: {len(data) - len(data.dropna(subset=['acl_rsi', 'sh_lsi']))}"
 
 The filled variables have a count of mostly 2222. Two variables, however, have notably fewer values (1624 and 1381 respectfully). Dropping these variables would significantly reduce the number of patients available for analysis, by around half. Also, due to differences in data collection and patients not doing every test each visit, the remaining missing values is due to a structural reason. For these reasons, we have decided to retain the remaining two variables as is.
 
+## Adding New Variables
+
+Here, we will create a new dataset that contains the 25th and 75th percentile for each visit. We will use this dataset for some visualizations later on. Additionally, we will add a new column, visit number, to more easily map out "change over time" for later visualizations.
+
+```{python}
+# Find the 25th and 75th percentile for each visit (1,2,3,4,...)
+flsi_percentiles = data.groupby('redcap_event_name')['lsi_flex_isok_60'].agg(mean='mean',q25='quantile', q75='quantile').reset_index()
+flsi_percentiles['q25'] = data.groupby('redcap_event_name')['lsi_flex_isok_60'].quantile(0.40).values
+flsi_percentiles['q75'] = data.groupby('redcap_event_name')['lsi_flex_isok_60'].quantile(0.60).values
+
+visit_map = {
+    'visit_1_arm_1': 1,
+    'visit_2_arm_1': 2,
+    'visit_3_arm_1': 3,
+    'visit_4_arm_1': 4,
+    'visit_5_arm_1': 5,
+    'visit_6_arm_1': 6,
+    'visit_7_arm_1': 7,
+    'visit_8_arm_1': 8,
+    'visit_9_arm_1': 9}
+
+# Create a new column with just the visit number
+flsi_percentiles['visit_num'] = flsi_percentiles['redcap_event_name'].map(visit_map)
+flsi_percentiles['visit_num'] = pd.to_numeric(flsi_percentiles['visit_num'], errors='coerce').astype('Int64')
+flsi_percentiles = flsi_percentiles[flsi_percentiles['redcap_event_name'] != 'data_upload_arm_2'] # remove unneeded values
+
+# In original dataset, create new column with just the visit number as well
+data['visit_num'] = data['redcap_event_name'].map(visit_map)
+flsi_percentiles['visit_num'] = pd.to_numeric(flsi_percentiles['visit_num'], errors='coerce').astype('Int64')
+```
+
 ## Last Checkups
 Let's make sure all the columns are the correct data type.
 
@@ -113,5 +144,14 @@ Let's make sure nothing is duplicated.
 ```{python}
 data.duplicated().value_counts()
 # All false!
+```
+
+## Export the datasets
+
+```{python}
+## Export the datasets
+
+data.to_csv('../data/final_data_cleaned.csv', index=False)
+flsi_percentiles.to_csv('../data/percentiles.csv', index=False)
 ```
 
