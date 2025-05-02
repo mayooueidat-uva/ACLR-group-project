@@ -12,9 +12,9 @@ book:
   sidebar:
     logo: logo.png
     search: true
-    repo-url: https://github.com/mayooueidat-uva/ACLR-group-project/tree/main
-    repo-branch: master
-    image: logo.png
+  repo-url: https://github.com/mayooueidat-uva/ACLR-group-project/tree/main
+  repo-branch: master
+  image: logo.png
 
   chapters:
     - index.qmd
