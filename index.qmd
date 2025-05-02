@@ -1,7 +1,5 @@
 # Report {.unnumbered}
 
-An outline for the DS2023 Communicating with Data final project report.
-
 ## Prepared For
 
 [Insert organization, stakeholder, audience here]
