@@ -1,5 +1,19 @@
-# Preface {.unnumbered}
+# Report {.unnumbered}
 
-This is a Quarto book.
+An outline for the DS2023 Communicating with Data final project report.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+## Prepared For
+
+[Insert organization, stakeholder, audience here]
+
+## Problem Statement
+
+[Clearly define the problem you are addressing. Include background context and the significance of the issue. This is beginning of your story - plot setting. Can include a graph]
+
+## Analysis
+
+[use storytelling and visuals to show how you are answering the problem]
+
+## Conclusion
+
+[use storytelling to give your conclusions and/or action items, can include a visual]

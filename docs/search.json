@@ -4,9 +4,9 @@
     "href": "index.html",
     "title": "DS2023 Final Project (Rename)",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "text": "Report\nAn outline for the DS2023 Communicating with Data final project report.",
     "crumbs": [
-      "Preface"
+      "Report"
     ]
   },
   {
@@ -127,6 +127,46 @@
     "text": "Graph 3: Distribution of LSI Extension Strength by Age Group\nThe box plot offers a more familiar and straightforward way to visualize data for our target audience of young athletes. Each box represents the interquartile range (IQR) of LSI Extension Strength (60°/s) within an age group, while the whiskers show variability and the dots highlight outliers. This format allows patients and their families to quickly understand how their strength compares to others in their age group. The visualization reassures patients that some variation is normal and that most people fall within a certain performance band, particularly as they progress in recovery. By stratifying the data by age group, we emphasize that strength recovery can vary with age, which is helpful for setting age-appropriate expectations during rehab.\n\nbins = [0, 12, 15, 18, 21, 25, 100]\nlabels = ['10-12', '13-15', '16-18', '19-21', '22-25', '26+']\ndata['age_group'] = pd.cut(data['age'], bins=bins, labels=labels)\n\nbox_data = data[['age_group', 'lsi_ext_isok_60']].dropna()\nbox_data = box_data[box_data['age_group'].isin(labels)]\n\nage_order = labels  # you already have them in the right order\n\nsns.set(style=\"whitegrid\")\n\nplt.figure(figsize=(10, 6))\nflierprops = dict(marker='o', markerfacecolor='red', markeredgecolor='red', markersize=4, linestyle='none')\n\nax = sns.boxplot(\n    x='age_group',\n    y='lsi_ext_isok_60',\n    data=box_data,\n    palette=\"Blues\",\n    flierprops=flierprops,\n    order=age_order  \n)\n\nax.set_title('LSI Extension Strength by Age Group', weight='bold', size=17, x=0.5, y=1.05)\nax.set_xlabel('Age Group', fontsize=12)\nax.set_ylabel('LSI Extension Strength (60°/s)', fontsize=12)\n\nplt.ylim(0, 150)\nplt.yticks([0, 50, 100, 150])\nplt.tick_params(axis='y', which='both', length=0)\nplt.tick_params(axis='x', which='both', length=0)\n\nfor spine in ['top', 'right', 'left', 'bottom']:\n    plt.gca().spines[spine].set_visible(False)\n\nplt.grid(axis='y', linestyle='--', alpha=0.7)\nplt.tight_layout()\n\n# Plot the patient as a star\n# Get the patient's row\npatient_row = data[(data['record_id'] == 109) & (data['visit_num'] == 1)].iloc[0]\npatient_age_group = patient_row['age_group']\npatient_value = patient_row['lsi_ext_isok_60']\n# Get the value's position \nx_plot_pos = labels.index(patient_age_group)\n# Plot the star\nax.plot(x_plot_pos, patient_value, marker='*', color='white', markersize=14, label='Patient 109')\nplt.figtext(0.9, .41, 'You', weight = 'bold', size = 11, color='white')\n\nplt.show()\n\n# Save final image\nplt.savefig('./graph_images/boxplots.png', bbox_inches='tight')\n\n/var/folders/y3/qpldbqrx2dn72lflj336s6l00000gn/T/ipykernel_85392/1802104442.py:15: FutureWarning:\n\n\n\nPassing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.\n\n\n\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Visualizations</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#prepared-for",
+    "href": "index.html#prepared-for",
+    "title": "DS2023 Final Project (Rename)",
+    "section": "Prepared For",
+    "text": "Prepared For\n[Insert organization, stakeholder, audience here]",
+    "crumbs": [
+      "Report"
+    ]
+  },
+  {
+    "objectID": "index.html#problem-statement",
+    "href": "index.html#problem-statement",
+    "title": "DS2023 Final Project (Rename)",
+    "section": "Problem Statement",
+    "text": "Problem Statement\n[Clearly define the problem you are addressing. Include background context and the significance of the issue. This is beginning of your story - plot setting. Can include a graph]",
+    "crumbs": [
+      "Report"
+    ]
+  },
+  {
+    "objectID": "index.html#analysis",
+    "href": "index.html#analysis",
+    "title": "DS2023 Final Project (Rename)",
+    "section": "Analysis",
+    "text": "Analysis\n[use storytelling and visuals to show how you are answering the problem]",
+    "crumbs": [
+      "Report"
+    ]
+  },
+  {
+    "objectID": "index.html#conclusion",
+    "href": "index.html#conclusion",
+    "title": "DS2023 Final Project (Rename)",
+    "section": "Conclusion",
+    "text": "Conclusion\n[use storytelling to give your conclusions and/or action items, can include a visual]",
+    "crumbs": [
+      "Report"
     ]
   }
 ]

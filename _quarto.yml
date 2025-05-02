@@ -6,13 +6,13 @@ book:
   title: "DS2023 Final Project (Rename)"
   author: "Jessica Ni, Maya Uwaydat, Wissal Khlouf"
   favicon: logo.png
-  description: final project
+  description: An outline for the DS2023 Communicating with Data final project report.
   keyword: data science, aclr
-  # url:
+  url: https://mayooueidat-uva.github.io/ACLR-group-project/
   sidebar:
     logo: logo.png
     search: true
-  #  repo-url: insert our repo here
+    repo-url: https://github.com/mayooueidat-uva/ACLR-group-project/tree/main
     repo-branch: master
     image: logo.png
 
@@ -23,17 +23,11 @@ book:
     - ./Graphs/Visualizations_book.qmd
     - datadictionary.qmd
 
-#bibliography: references.bib
-
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      - minty
     code-fold: false
-    # backgroundcolor: "FFFFFF"
-  pdf:
-    documentclass: scrreprt
-
-
-
+    #backgroundcolor: "#fafeff"
+  #pdf:
+  #  documentclass: scrreprt
