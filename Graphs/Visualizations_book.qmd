@@ -255,7 +255,7 @@ plt.legend(["first visits", "second visits", "third visits", "fourth visits"])
 plt.savefig('./graph_images/kde_aclrsi.png', bbox_inches='tight')
 ```
 
-## Distribution of LSI Extension Strength by Age Group
+## Graph 3: Distribution of LSI Extension Strength by Age Group
 
 The box plot offers a more familiar and straightforward way to visualize data for our target audience of young athletes. Each box represents the interquartile range (IQR) of LSI Extension Strength (60°/s) within an age group, while the whiskers show variability and the dots highlight outliers. This format allows patients and their families to quickly understand how their strength compares to others in their age group. The visualization reassures patients that some variation is normal and that most people fall within a certain performance band, particularly as they progress in recovery. By stratifying the data by age group, we emphasize that strength recovery can vary with age, which is helpful for setting age-appropriate expectations during rehab.
 
