@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="final project">
+
+<title>Visualizations – DS2023 Final Project (Rename)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../datadictionary.html" rel="next">
+<link href="../eda.html" rel="prev">
+<link href="../logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Graphs/Visualizations_book.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualizations</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">DS2023 Final Project (Rename)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../EDA/datacleaning_forbook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Cleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Untitled</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Graphs/Visualizations_book.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualizations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../datadictionary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Untitled</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#graph-1-flexion-lsi-over-time" id="toc-graph-1-flexion-lsi-over-time" class="nav-link active" data-scroll-target="#graph-1-flexion-lsi-over-time">Graph 1: Flexion LSI over time</a></li>
+  <li><a href="#graph-1-continued-line-plot-series" id="toc-graph-1-continued-line-plot-series" class="nav-link" data-scroll-target="#graph-1-continued-line-plot-series">Graph 1 Continued: Line Plot Series</a></li>
+  <li><a href="#graph-2-probability-distribution-of-acl-rsi-scores" id="toc-graph-2-probability-distribution-of-acl-rsi-scores" class="nav-link" data-scroll-target="#graph-2-probability-distribution-of-acl-rsi-scores">Graph 2: Probability Distribution of ACL-RSI scores</a></li>
+  <li><a href="#distribution-of-lsi-extension-strength-by-age-group" id="toc-distribution-of-lsi-extension-strength-by-age-group" class="nav-link" data-scroll-target="#distribution-of-lsi-extension-strength-by-age-group">Distribution of LSI Extension Strength by Age Group</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Visualizations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="0a007039" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'../Data/final_data_cleaned.csv'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>flsi_percentiles <span class="op">=</span> pd.read_csv(<span class="st">'../Data/percentiles.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="graph-1-flexion-lsi-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="graph-1-flexion-lsi-over-time">Graph 1: Flexion LSI over time</h2>
+<p>When it comes to a <strong>patient</strong> understanding <strong>their</strong> ACLR recovery, being able to visually see changes across time makes understanding their recovery progress easier. Through a line plot, a patient can visually see that progression over multiple visits, allowing them to notice any irregularities that go against the general pattern, which is usually an increase in the recovery statistic. Additionally, having a background population of patients who also underwent ACLR surgery acts as a comparison point, allowing them to compare themselves to a group of people who have gone through a similar recovery process. Having the patient be able to picture themselves in the data is important, as we want for them to understand where they stand in recovery without explicitly knowing miniscule details about medical terminology. Sometimes, seeing yourself as a positive sloping line among a positive sloping population is enough to understand that recovery is going smoothly.</p>
+<p>This is a line graph that captures a single patient’s recovery progress for Flexion LSI (using a randomly chosen patient with at least 4 visits). Additionally, it has Flexion LSI data over visits from all the patients in the study, which acts as a comparison point for the patient. The population data is shaded to show the IQR, which is the 25th to 75th percentile. My goal is for the patient to be able to picture himself/herself in recovery and understand that test results usually get better over time.</p>
+<div id="9635484a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot IQR 25 to 75, and fill the space between</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q25'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.fill_between(flsi_percentiles[<span class="st">'visit_num'</span>], </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q25'</span>], </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label <span class="op">=</span> <span class="st">'patients'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose a patient to showcase their recovery progress</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>highlight_data <span class="op">=</span> data[data[<span class="st">'record_id'</span>] <span class="op">==</span> <span class="dv">109</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Line plot of recovery</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.plot(highlight_data[<span class="st">'visit_num'</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>],</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>         linestyle<span class="op">=</span><span class="st">'-'</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#00A9FF'</span>, label<span class="op">=</span><span class="st">'You'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add colored dots</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">0</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>].iloc[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#E5383B'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>].iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Add titles/labels/text</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Tracking Your Flexion LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.522</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.76</span>, <span class="st">'Your Progress'</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'#00A9FF'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.68</span>, <span class="st">"Other Patients' IQR"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.63</span>, <span class="st">"(Middle 50%)"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.182</span>, <span class="fl">0.0755</span>, <span class="st">"st Visit ..."</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.165</span>, <span class="fl">0.019</span>, <span class="st">"Note: Data from Patient ID 109"</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Customize graph</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">76</span>, <span class="dv">100</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.yticks([<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>])</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>plt.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>plt.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Save final image</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"./graph_images/lsi_flexion_line.png"</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Visualizations_book_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="graph-1-continued-line-plot-series" class="level2">
+<h2 class="anchored" data-anchor-id="graph-1-continued-line-plot-series">Graph 1 Continued: Line Plot Series</h2>
+<p>As a continuation from the first graph, this visualization shows subplots of three LSI (limb symmetry index) scores across visits. Patients may find it helpful to see how their different functional assessments differ. The goal of this graph is for the patient to easily see their improvements or deficiencies.</p>
+<div id="a3b91e7c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data for subplots</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extension LSI</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the 25th and 75th percentile for each visit (1,2,3,4,...)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>elsi_percentiles <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_ext_isok_60'</span>].agg(mean<span class="op">=</span><span class="st">'mean'</span>,q25<span class="op">=</span><span class="st">'quantile'</span>, q75<span class="op">=</span><span class="st">'quantile'</span>).reset_index()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>elsi_percentiles[<span class="st">'q25'</span>] <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_ext_isok_60'</span>].quantile(<span class="fl">0.40</span>).values</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>elsi_percentiles[<span class="st">'q75'</span>] <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_ext_isok_60'</span>].quantile(<span class="fl">0.60</span>).values</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>visit_map <span class="op">=</span> {</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_1_arm_1'</span>: <span class="dv">1</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_2_arm_1'</span>: <span class="dv">2</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_3_arm_1'</span>: <span class="dv">3</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_4_arm_1'</span>: <span class="dv">4</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_5_arm_1'</span>: <span class="dv">5</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_6_arm_1'</span>: <span class="dv">6</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_7_arm_1'</span>: <span class="dv">7</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_8_arm_1'</span>: <span class="dv">8</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'visit_9_arm_1'</span>: <span class="dv">9</span>}</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column with just the visit number</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>elsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> elsi_percentiles[<span class="st">'redcap_event_name'</span>].<span class="bu">map</span>(visit_map)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>elsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> pd.to_numeric(elsi_percentiles[<span class="st">'visit_num'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>).astype(<span class="st">'Int64'</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>elsi_percentiles <span class="op">=</span> elsi_percentiles[elsi_percentiles[<span class="st">'redcap_event_name'</span>] <span class="op">!=</span> <span class="st">'data_upload_arm_2'</span>] <span class="co"># remove unneeded values</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># SH LSI</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the 25th and 75th percentiles</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>sh_lsi_percentiles <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'sh_lsi'</span>].agg(q25<span class="op">=</span><span class="kw">lambda</span> x: x.quantile(<span class="fl">0.4</span>), q75<span class="op">=</span><span class="kw">lambda</span> x: x.quantile(<span class="fl">0.6</span>)).reset_index()</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>sh_lsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> sh_lsi_percentiles[<span class="st">'redcap_event_name'</span>].<span class="bu">map</span>(visit_map)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>sh_lsi_percentiles <span class="op">=</span> sh_lsi_percentiles[sh_lsi_percentiles[<span class="st">'redcap_event_name'</span>] <span class="op">!=</span> <span class="st">'data_upload_arm_2'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ecd691bd" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">3</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">18</span>)) <span class="co"># set the figure size and have 3 small multiples within the figure</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>axs <span class="op">=</span> axs.flatten()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>highlight_data <span class="op">=</span> data[data[<span class="st">'record_id'</span>] <span class="op">==</span> <span class="dv">109</span>] <span class="co"># use patient 109 for consistency</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 1: Flexion LSI ---------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(highlight_data[<span class="st">'visit_num'</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>], linestyle<span class="op">=</span><span class="st">'-'</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#00A9FF'</span>, label<span class="op">=</span><span class="st">'You'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot and fill in IQR data</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q25'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].fill_between(flsi_percentiles[<span class="st">'visit_num'</span>], </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q25'</span>], </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label <span class="op">=</span> <span class="st">'patients'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add colored dots</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">0</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>].iloc[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#E5383B'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>].iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Flexion LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="dv">76</span>, <span class="dv">100</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_yticks([<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>])</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.843</span>, <span class="st">'Your Progress'</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'#00A9FF'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.82</span>, <span class="st">"Other Patients' IQR"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.806</span>, <span class="st">"(Middle 50%)"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 2: Extension LSI ---------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(highlight_data[<span class="st">'visit_num'</span>], highlight_data[<span class="st">'lsi_ext_isok_60'</span>], linestyle<span class="op">=</span><span class="st">'-'</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#3A6EA5'</span>, label<span class="op">=</span><span class="st">'You'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot and fill in IQR data</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q25'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].fill_between(flsi_percentiles[<span class="st">'visit_num'</span>], </span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q25'</span>], </span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                 flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label <span class="op">=</span> <span class="st">'patients'</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Add colored dots</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">0</span>], highlight_data[<span class="st">'lsi_ext_isok_60'</span>].iloc[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#E5383B'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], highlight_data[<span class="st">'lsi_ext_isok_60'</span>].iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Extension LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="dv">60</span>, <span class="dv">100</span>)</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_yticks([<span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>])</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.486</span>, <span class="st">'Your Progress'</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'#3A6EA5'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.576</span>, <span class="st">"Other Patients' IQR"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.56</span>, <span class="st">"(Middle 50%)"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot 3: Single Hop LSI ---------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>interpolated_sh_lsi <span class="op">=</span> highlight_data[<span class="st">'sh_lsi'</span>].interpolate() <span class="co"># Interpolate values because patient did not test for single hop lsi on 4th visit</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(highlight_data[<span class="st">'visit_num'</span>], highlight_data[<span class="st">'sh_lsi'</span>], linestyle<span class="op">=</span><span class="st">'-'</span>, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#38A3A5'</span>, label<span class="op">=</span><span class="st">'You'</span>)</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(highlight_data[<span class="st">'visit_num'</span>], interpolated_sh_lsi, linestyle<span class="op">=</span><span class="st">'--'</span>, color<span class="op">=</span><span class="st">'#38A3A5'</span>, label<span class="op">=</span><span class="st">'Interpolated Data'</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot and fill in IQR data</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(sh_lsi_percentiles[<span class="st">'visit_num'</span>], sh_lsi_percentiles[<span class="st">'q25'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(sh_lsi_percentiles[<span class="st">'visit_num'</span>], sh_lsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].fill_between(sh_lsi_percentiles[<span class="st">'visit_num'</span>], </span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>                 sh_lsi_percentiles[<span class="st">'q25'</span>], </span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>                 sh_lsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label <span class="op">=</span> <span class="st">'patients'</span>)</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Add colored dots</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">0</span>], highlight_data[<span class="st">'sh_lsi'</span>].iloc[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#E5383B'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], interpolated_sh_lsi.iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="st">'Single Hop LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_ylim(<span class="dv">70</span>, <span class="dv">100</span>)</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_yticks([<span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>])</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>,length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle <span class="op">=</span> <span class="st">'--'</span>)</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.181</span>, <span class="st">'Your Progress'</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'#38A3A5'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.301</span>, <span class="st">"Other Patients' IQR"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.285</span>, <span class="st">"(Middle 50%)"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall graph customizations ---------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.182</span>, <span class="fl">0.657</span>, <span class="st">"st Visit ..."</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.165</span>, <span class="fl">0.08</span>, <span class="st">"Note: Data from Patient ID 109"</span>, size<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Tracking Your ...'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>, size<span class="op">=</span><span class="dv">30</span>, x<span class="op">=</span><span class="fl">0.39</span>, y<span class="op">=</span><span class="fl">.955</span>)</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="co"># Save final image</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'./graph_images/line_series.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Visualizations_book_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="graph-2-probability-distribution-of-acl-rsi-scores" class="level2">
+<h2 class="anchored" data-anchor-id="graph-2-probability-distribution-of-acl-rsi-scores">Graph 2: Probability Distribution of ACL-RSI scores</h2>
+<p>Though the lineplot is useful for showcasing an individual patient’s progress over time, it is not effective for portraying the distribution of the ACL-RSI scores; therefore, we want to use a kernel density estimate plot stratified by visit number. We deliberately excluded 5th, 7th, 7th, 8th, and 9th visits to keep consistency with the line plots.</p>
+<p>Compared to line plots, the KDEplot is less familiar most people, and it will most certainly be unfamiliar to our target audience. Therefore, our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are <em>more likely</em> to have higher ACL-RSI scores as time passes and reassure patients who fear they will never feel ready to return to sport.</p>
+<div id="a794c089" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting kernel density estimate plots</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">1</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#DDDDDD"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">2</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#BBBBBB"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">3</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#666666"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">4</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#006500"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># customising text</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'"Kernel Density Estimate" Plot</span><span class="ch">\n</span><span class="st"> of ACL-RSI Scores'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.522</span>, y<span class="op">=</span><span class="fl">1.05</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"ACL-RSI score"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'"Density" score'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># clarifying notes for the audience on what "kde" is for our "audience"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.0555</span>, <span class="st">'What is "Kernel Density Estimate?"'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.105</span>, <span class="st">'Using our data, the computer calculates the probability that we'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.145</span>, <span class="st">'will see a certain ACL-RSI score. Then, we graph the probabilities.'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.185</span>, <span class="st">'The higher the curve at a given point, the more likely we are to'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.225</span>, <span class="st">'observe the value corresponding to that point.'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.275</span>, <span class="st">'Understanding "Density"'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.100</span>, <span class="op">-</span><span class="fl">0.3245</span>, <span class="st">'"Density" = percent chance divided by 100'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># violently despining the graph lol </span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>plt.gca().spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># legend</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">"first visits"</span>, <span class="st">"second visits"</span>, <span class="st">"third visits"</span>, <span class="st">"fourth visits"</span>])</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Save final image</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'./graph_images/kde_aclrsi.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Visualizations_book_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distribution-of-lsi-extension-strength-by-age-group" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-lsi-extension-strength-by-age-group">Distribution of LSI Extension Strength by Age Group</h2>
+<p>The box plot offers a more familiar and straightforward way to visualize data for our target audience of young athletes. Each box represents the interquartile range (IQR) of LSI Extension Strength (60°/s) within an age group, while the whiskers show variability and the dots highlight outliers. This format allows patients and their families to quickly understand how their strength compares to others in their age group. The visualization reassures patients that some variation is normal and that most people fall within a certain performance band, particularly as they progress in recovery. By stratifying the data by age group, we emphasize that strength recovery can vary with age, which is helpful for setting age-appropriate expectations during rehab.</p>
+<div id="c7ca5c16" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">25</span>, <span class="dv">100</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'10-12'</span>, <span class="st">'13-15'</span>, <span class="st">'16-18'</span>, <span class="st">'19-21'</span>, <span class="st">'22-25'</span>, <span class="st">'26+'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'age_group'</span>] <span class="op">=</span> pd.cut(data[<span class="st">'age'</span>], bins<span class="op">=</span>bins, labels<span class="op">=</span>labels)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>box_data <span class="op">=</span> data[[<span class="st">'age_group'</span>, <span class="st">'lsi_ext_isok_60'</span>]].dropna()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>box_data <span class="op">=</span> box_data[box_data[<span class="st">'age_group'</span>].isin(labels)]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>age_order <span class="op">=</span> labels  <span class="co"># you already have them in the right order</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>flierprops <span class="op">=</span> <span class="bu">dict</span>(marker<span class="op">=</span><span class="st">'o'</span>, markerfacecolor<span class="op">=</span><span class="st">'red'</span>, markeredgecolor<span class="op">=</span><span class="st">'red'</span>, markersize<span class="op">=</span><span class="dv">4</span>, linestyle<span class="op">=</span><span class="st">'none'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.boxplot(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'age_group'</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'lsi_ext_isok_60'</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>box_data,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">"Blues"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    flierprops<span class="op">=</span>flierprops,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>age_order  </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'LSI Extension Strength by Age Group'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.5</span>, y<span class="op">=</span><span class="fl">1.05</span>)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Age Group'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'LSI Extension Strength (60°/s)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, <span class="dv">150</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>plt.yticks([<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>])</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>plt.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, which<span class="op">=</span><span class="st">'both'</span>, length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>plt.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, which<span class="op">=</span><span class="st">'both'</span>, length<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> spine <span class="kw">in</span> [<span class="st">'top'</span>, <span class="st">'right'</span>, <span class="st">'left'</span>, <span class="st">'bottom'</span>]:</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    plt.gca().spines[spine].set_visible(<span class="va">False</span>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the patient as a star</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the patient's row</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>patient_row <span class="op">=</span> data[(data[<span class="st">'record_id'</span>] <span class="op">==</span> <span class="dv">109</span>) <span class="op">&amp;</span> (data[<span class="st">'visit_num'</span>] <span class="op">==</span> <span class="dv">1</span>)].iloc[<span class="dv">0</span>]</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>patient_age_group <span class="op">=</span> patient_row[<span class="st">'age_group'</span>]</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>patient_value <span class="op">=</span> patient_row[<span class="st">'lsi_ext_isok_60'</span>]</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the value's position </span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>x_plot_pos <span class="op">=</span> labels.index(patient_age_group)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the star</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>ax.plot(x_plot_pos, patient_value, marker<span class="op">=</span><span class="st">'*'</span>, color<span class="op">=</span><span class="st">'white'</span>, markersize<span class="op">=</span><span class="dv">14</span>, label<span class="op">=</span><span class="st">'Patient 109'</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.9</span>, <span class="fl">.41</span>, <span class="st">'You'</span>, weight <span class="op">=</span> <span class="st">'bold'</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Save final image</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'./graph_images/boxplots.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/y3/qpldbqrx2dn72lflj336s6l00000gn/T/ipykernel_84821/1802104442.py:15: FutureWarning:
+
+
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Visualizations_book_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../eda.html" class="pagination-link" aria-label="Untitled">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Untitled</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../datadictionary.html" class="pagination-link" aria-label="Untitled">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Untitled</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

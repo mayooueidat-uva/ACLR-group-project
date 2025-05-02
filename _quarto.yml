@@ -20,7 +20,7 @@ book:
     - index.qmd
     - ./EDA/datacleaning_forbook.qmd
     - eda.qmd
-    - datavis.qmd
+    - ./Graphs/Visualizations_book.qmd
     - datadictionary.qmd
 
 #bibliography: references.bib
