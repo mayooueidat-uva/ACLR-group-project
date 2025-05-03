@@ -21,7 +21,7 @@ book:
     - ./EDA/datacleaning_forbook.qmd
     - eda.qmd
     - ./Graphs/Visualizations_book.qmd
-    - datadictionary.qmd
+    - ./datadictionary.qmd
 
 format:
   html:
