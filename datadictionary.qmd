@@ -1,5 +1,12 @@
 ---
-title: "Untitled"
+title: "Data Dictionary"
 format: html
 ---
 
+
+| Variable Name       | Variable Label               | Description                                                                  |
+|---------------------|------------------------------|------------------------------------------------------------------------------|
+| `acl_rsi`| Anterior cruciate ligament return-to-sport after injury survey | Patients are given a survey (the “ACL-RSI” survey) where they answer questions related to “appraisal,” “confidence,” and “emotions”. Then, their psychological readiness score is calculated out of one hundred points. Though our report largely focuses on athletes’ performance after ACLR, psychological readiness remains relevant because suffering an athletic injury and undergoing surgery will affect a person beyond the physical dimension of their sport.|
+| `lsi_ext_isok_60` | LSI Extension Isokinetic 60° | Limb symmetry index (“lsi”) for isokinetic (“isok”) extension strength (ext) at a sixty-degree angle (“60”). Limb symmetry index is a percentage value calculated by measuring the torque of the involved (i.e. affected) limb, measuring the torque of the contralateral limb, dividing the involved limb value by the contralateral limb value, and multiplying by one hundred. The patient bends their leg backwards sixty degrees for isokinetic strength measurements. |
+| `lsi_flex_isok_60`| LSI Flexion Isokinetic 60°| Limb symmetry index (“lsi”) for isokinetic (“isok”) flexion strength (“flex”) at a sixty-degree angle (“60”). The patient bends their leg forward sixty degrees (i.e. back its original position) for isokinetic strength measurements, but limb symmetry index is calculated the same way.|
+| `sh_lsi` | "Single hop" limb symmetry index | A patient hopped once on their afflicted limb, then they hopped once on the contralateral limb. The hop distances were taken in metres, and the involved limb value was divided by the contralateral limb value and multiplied by one hundred. It measures patients’ abilities while they are engaged in movements similar to when they play sports.|
