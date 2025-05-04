@@ -223,14 +223,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="understanding-and-cleaning-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="understanding-and-cleaning-dataset">Understanding and Cleaning Dataset</h2>
-<div id="4f5a7831" class="cell" data-execution_count="1">
+<div id="2a6471f3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="418c7efc" class="cell" data-execution_count="2">
+<div id="a90d013c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'../data/final_data_cleaned.csv'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -326,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="b43658dd" class="cell" data-execution_count="3">
+<div id="47c13a93" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's see the shape.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -334,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>There are 2222 observations and 10 features.</p>
-<div id="a4c366e8" class="cell" data-execution_count="4">
+<div id="68749938" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's understand the observations? Are there 2222 separate patients?</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data[<span class="st">'record_id'</span>].nunique())</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>results1 <span class="op">=</span> data[<span class="st">'record_id'</span>].value_counts().describe()</span>
@@ -398,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-types" class="level2">
 <h2 class="anchored" data-anchor-id="data-types">Data Types</h2>
-<div id="b32ba395" class="cell" data-execution_count="5">
+<div id="81491067" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seeing what variables we are working with </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This will show categorical variables</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>, <span class="st">'category'</span>, <span class="st">'string'</span>]).head(n<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="5afa6347" class="cell" data-execution_count="6">
+<div id="4806fdea" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will which variables are numerical/continuous</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data.select_dtypes(include<span class="op">=</span>[<span class="st">'int64'</span>, <span class="st">'float64'</span>]).head(n<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -502,7 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="descriptive-statistics-distributions">Descriptive Statistics &amp; Distributions</h2>
 <section id="extension-lsi-and-flexion-lsi" class="level4">
 <h4 class="anchored" data-anchor-id="extension-lsi-and-flexion-lsi">Extension LSI and Flexion LSI</h4>
-<div id="d03d09be" class="cell" data-execution_count="7">
+<div id="e5bc68e3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's see the summary stats for knee extension lsi and knee flexion lsi, </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this would show how symmetric the uninjured and injured limbs are when </span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extending and flexing the leg</span></span>
@@ -619,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>0</code></pre>
 </div>
 </div>
-<div id="45e9bbec" class="cell" data-execution_count="8">
+<div id="b8a71f72" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This kde plot for both lsi extension and lsi flexion shows what </span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># their basic distributions look like</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -648,7 +648,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="examine-correlations" class="level2">
 <h2 class="anchored" data-anchor-id="examine-correlations">Examine Correlations</h2>
-<div id="e1ca1750" class="cell" data-execution_count="9">
+<div id="c771d0c8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">'lsi_ext_isok_60'</span>, y<span class="op">=</span><span class="st">'lsi_flex_isok_60'</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Relationship in Flexion and Extension LSI'</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Extension LSI'</span>)</span>
@@ -675,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="flexion-lsi-over-time" class="level4">
 <h4 class="anchored" data-anchor-id="flexion-lsi-over-time">Flexion LSI Over Time</h4>
-<div id="516a9bc1" class="cell" data-execution_count="10">
+<div id="a30d2a45" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'visit_num'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>visit_num
@@ -691,7 +691,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="49469ba6" class="cell" data-execution_count="11">
+<div id="8ea6e13a" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'lsi_flex_isok_60'</span>].groupby(data[<span class="st">'visit_num'</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>visit_num
@@ -708,7 +708,7 @@ Name: lsi_flex_isok_60, dtype: float64</code></pre>
 </div>
 </div>
 <p>From these tables, we can see that though the number of patients decreases over vists. On average, patients’ LSI for flexion strength increases over time. Let’s see this more clearly through a line graph.</p>
-<div id="21d40e55" class="cell" data-execution_count="12">
+<div id="0a7b33e2" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mean_lsi_f <span class="op">=</span> data.groupby(<span class="st">'redcap_event_name'</span>)[<span class="st">'lsi_flex_isok_60'</span>].mean().reset_index()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>visit_order <span class="op">=</span> [<span class="st">'visit_1_arm_1'</span>, <span class="st">'visit_2_arm_1'</span>, <span class="st">'visit_3_arm_1'</span>, <span class="st">'visit_4_arm_1'</span>, <span class="st">'visit_5_arm_1'</span>, <span class="st">'visit_6_arm_1'</span>, <span class="st">'visit_7_arm_1'</span>, <span class="st">'visit_8_arm_1'</span>, <span class="st">'visit_9_arm_1'</span>]</span>
@@ -758,7 +758,7 @@ Name: lsi_flex_isok_60, dtype: float64</code></pre>
 <h2 class="anchored" data-anchor-id="explore-relationships">Explore Relationships</h2>
 <section id="extension-lsi-and-sex" class="level4">
 <h4 class="anchored" data-anchor-id="extension-lsi-and-sex">Extension LSI and Sex</h4>
-<div id="98d9c8d0" class="cell" data-execution_count="13">
+<div id="fde62f55" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">'sex_dashboard'</span>, y<span class="op">=</span><span class="st">'lsi_ext_isok_60'</span>, data<span class="op">=</span>data, hue<span class="op">=</span><span class="st">'sex_dashboard'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Are there differences in Extension LSI between sex?'</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Isokinetic knee extension symmetry'</span>)</span>
@@ -801,7 +801,7 @@ Name: lsi_flex_isok_60, dtype: float64</code></pre>
 </section>
 <section id="single-hop-lsi-between-age-groups" class="level4">
 <h4 class="anchored" data-anchor-id="single-hop-lsi-between-age-groups">Single Hop LSI between Age Groups</h4>
-<div id="e1ce367c" class="cell" data-execution_count="14">
+<div id="4a0d822e" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>data, y<span class="op">=</span><span class="st">'sh_lsi'</span>, x<span class="op">=</span><span class="st">'age_group'</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Differences in Flexion for Age Groups'</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Age Group'</span>)</span>
@@ -820,7 +820,7 @@ Name: lsi_flex_isok_60, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="c5494087" class="cell" data-execution_count="15">
+<div id="a7e9c864" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data.head()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'sh_lsi'</span>].groupby(data[<span class="st">'age_group'</span>]).mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">

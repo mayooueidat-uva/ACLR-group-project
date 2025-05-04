@@ -1,6 +1,7 @@
 ---
 title: Exploratory Data Analysis
 jupyter: python3
+chapter: true
 ---
 
 
