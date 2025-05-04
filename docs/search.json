@@ -238,5 +238,15 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Exploratory Data Analysis</span>"
     ]
+  },
+  {
+    "objectID": "index.html#audience",
+    "href": "index.html#audience",
+    "title": "You’re Pulling My Leg:Visualizing a Patient’s ACLR Journey",
+    "section": "Audience",
+    "text": "Audience\nOur dataset largely consists of patients aged 12 to 20, who represent our primary audience. However, there are a few patients who fall outside this age range. Therefore, our working audience includes all patients who have undergone ACL reconstruction surgery and can benefit from visual tools to understand their recovery.",
+    "crumbs": [
+      "Report"
+    ]
   }
 ]
