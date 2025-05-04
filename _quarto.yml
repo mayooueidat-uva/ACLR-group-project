@@ -3,10 +3,11 @@ project:
   output-dir: docs
 
 book:
-  title: "DS2023 Final Project (Rename)"
+  title: "You're Pulling My Leg:<br>Visualizing a Patient's ACLR Journey"
+
   author: "Jessica Ni, Maya Uwaydat, Wissal Khlouf"
   favicon: logo.png
-  description: An outline for the DS2023 Communicating with Data final project report.
+  description: An outline for <em>DS2023 Communicating with Data</em> final project report.
   keyword: data science, aclr
   url: https://mayooueidat-uva.github.io/ACLR-group-project/
   sidebar:
