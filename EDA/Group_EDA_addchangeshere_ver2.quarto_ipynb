@@ -1,0 +1,574 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: Exploratory Data Analysis\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "### Jessica Ni, Maya Uwaydat, Wissal Khlouf\n",
+        "\n",
+        "\n",
+        "## Audience/Stakeholder\n",
+        "\n",
+        "Our report is intended for a general audience, and we hope to make it comprehensible for people aged 12-20 like the patients represented in the study. We will simplify medical jargon and create streamlined data visualizations in formats familiar to most people, but most importantly, the patient reading their report. \n",
+        "\n",
+        "## Problem Statement\n",
+        "\n",
+        "Young athletes who have undergone ACLR may find it difficult to interpret their recovery and performance data, especially when presented with technical terms. How can we educate young athletes about their recovery progress and expectations of athletic performance based on patients similar to them?\n",
+        "\n",
+        "## Important Variables\n",
+        "\n",
+        "#### acl_rsi\n",
+        "* Anterior cruciate ligament return-to-sport after injury survey. Patients are given a survey (the “ACL-RSI” survey) where they answer questions related to “appraisal,” “confidence,” and “emotions,” and their psychological readiness score is calculated out of one hundred points. Though our report largely focuses on athletes’ performance after ACLR, psychological readiness remains relevant because suffering an athletic injury and undergoing surgery will affect a person beyond the physical dimension of their sport. \n",
+        "\n",
+        "#### lsi_ext_isok_60\n",
+        "* Limb symmetry index (abbreviated as “`lsi`” in our variable names) for isokinetic (“`isok`”) extension strength (“`ext`”) at a sixty-degree angle (“`60`”). We choose to include `lsi_ext_isok_60` as an objective measure of athletes’ strength post-ACLR (which would relate to athletic performance).\n",
+        "  * Isokinetic strength is measured in torque. \n",
+        "  * Limb symmetry index is a percentage value calculated by measuring the torque of the involved (i.e. affected) limb, measuring the torque of the contralateral limb, dividing the involved limb value by the contralateral limb value, and multiplying by one hundred. \n",
+        "  * The patient bends their leg backwards sixty degrees for isokinetic strength measurements. \n",
+        "\n",
+        "#### lsi_flex_isok_60\n",
+        "* Limb symmetry index (“`lsi`”) for isokinetic (“`isok`”) flexion strength (“`flex`”) at a sixty-degree angle (“`60`”). The patient bends their leg forward sixty degrees (i.e. back its original position) for isokinetic strength measurements, but limb symmetry index is calculated the same way. We include `lsi_flex_isok_60` in our report for the same purpose as `lsi_ext_isok_60`. \n",
+        "\n",
+        "#### sh_lsi\n",
+        "* \"Single hop\" (\"`sh`\") limb symmetry index (\"`lsi`\"). Included in our dataset because it measures patients’ abilities while they are engaged in movements similar to when they play sports.\n",
+        "  * a patient hopped once on their afflicted limb, then they hopped once on the contralateral limb. \n",
+        "  * The hop distances were taken in metres, and the involved limb value was divided by the contralateral limb value and multiplied by one hundred. \n",
+        "\n",
+        "Notably, our dataset did not contain a control group that did not undergo ACLR, so we cannot assess the benefits of the procedure from our data alone. \n",
+        "\n",
+        "## Understanding and Cleaning Dataset\n"
+      ],
+      "id": "04adde3e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# import libraries\n",
+        "import matplotlib.pyplot as plt\n",
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import seaborn as sns"
+      ],
+      "id": "e5abafc0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Load in data\n",
+        "data = pd.read_csv('../data/aclr_data.csv')\n",
+        "data.head()"
+      ],
+      "id": "174b3b56",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's see the shape.\n",
+        "data.shape\n",
+        "# 11149 observations and 63 features"
+      ],
+      "id": "68c688f5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# That is a lot of observations. Are there 11149 separate patients?\n",
+        "print(data['record_id'].nunique())\n",
+        "results1 = data['record_id'].value_counts().describe()\n",
+        "\n",
+        "table = pd.DataFrame(results1) # this will show the results as a table format\n",
+        "display(table) \n",
+        "\n",
+        "# We see that there are 4739 unique patients and each patient may have multiple entries\n",
+        "# Subjects have an average of 2 visits"
+      ],
+      "id": "31ef9285",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Seeing what variables we are working with \n",
+        "# (Just to check which are categorical)\n",
+        "\n",
+        "data.select_dtypes(include=['object', 'category', 'string']).head(n=3)"
+      ],
+      "id": "5df04869",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# This will which variables are numerical/continuous.\n",
+        "\n",
+        "data.select_dtypes(include=['int64', 'float64']).head(n=3)"
+      ],
+      "id": "83dc671a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# First, let's keep only the columns we are interested in\n",
+        "data = data[['record_id', 'redcap_event_name', 'sex_dashboard', 'visit_sex', 'age', 'age_group', 'acl_rsi', 'lsi_ext_isok_60', 'lsi_flex_isok_60', 'sh_lsi', 'rts', 'rts_tss']]"
+      ],
+      "id": "99b4c3c1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's make sure all the columns are the correct data type\n",
+        "data.info()"
+      ],
+      "id": "99f9ad52",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's spot missing values\n",
+        "data.isnull().sum()"
+      ],
+      "id": "a9c3be28",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's visualize where the missing values lie\n",
+        "sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)\n",
+        "\n",
+        "# The yellow values show missing information.\n",
+        "# Record ID and event description have no missing values\n",
+        "# It seems that many of the numerical measurements are missing, likely because there are multiple entries per subject."
+      ],
+      "id": "37ed2076",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's start by filling data that is already known based on the subject's first entry\n",
+        "\n",
+        "# Since we know that there are multiple entries per subject and each entry has at least an ID associated with it, \n",
+        "# We will start by filling in known cells, such as the sex based on the first occurrence \n",
+        "\n",
+        "# Here, for each patient, we filled in sex based on the sex listed in their first visit\n",
+        "\n",
+        "data['sex_dashboard'] = data.groupby('record_id')['sex_dashboard'].transform('first')\n",
+        "data['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')"
+      ],
+      "id": "abdfb79d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Next, we noticed that within the event column, the first event called baseline_arm_1 has missing values for everything except the patient's sex,\n",
+        "# So, we will remove all of those observations since we already filled in sex in the code chunk above\n",
+        "data[data['redcap_event_name'] == 'baseline_arm_1'].head()\n",
+        "\n",
+        "data = data[data['redcap_event_name'] != 'baseline_arm_1']"
+      ],
+      "id": "f046cab3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Additionally, where there is an event called long_term_outcomes_arm_1, it just includes two pieces of information called rts (return to sport) \n",
+        "# and rts_tss, so we will move those values to its own dataframe if needed later\n",
+        "data = data.drop(columns=['rts', 'rts_tss'])\n",
+        "\n",
+        "rts_df = data[data['redcap_event_name'] == 'long_term_outcomes_arm_1']\n",
+        "data = data[data['redcap_event_name'] != 'long_term_outcomes_arm_1']"
+      ],
+      "id": "22e0b33c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Drop extra sex column\n",
+        "data = data.drop(columns=['visit_sex'])"
+      ],
+      "id": "3f14203f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's make sure nothing is duplicated\n",
+        "data.duplicated().value_counts()"
+      ],
+      "id": "264943d6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's check how the missing values look now! \n",
+        "sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)\n",
+        "# It looks much better. "
+      ],
+      "id": "8a77a504",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Our dataset is longitudinal, and patients come in at irregular time intervals. Missing values for certain tests (like LSI or hop tests) during later visits are very common because not all tests are performed at each visit (meaning NaNs are not random). \n",
+        "\n",
+        "We have decided to leave missing values without imputing them. Usually, test outcomes should improve as a patient is recovering, but if we imputed with mean values, that may distort the pattern of recovery. Not imputing helps us avoid making assumptions about missing data.\n",
+        "\n",
+        "Additionally, missing data may signify patient recovery. If a patient skips a test, that may mean they are recovering at a pace at which the test is not needed.\n"
+      ],
+      "id": "babda5c5"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data[data['lsi_ext_isok_60'].isna()].head()"
+      ],
+      "id": "af3439ff",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "To illustrate the idea, we can see in the table above that there are missing values for limb symmetry index, and that the patient does not perform every test each doctor's visit. We can see that even though one test is missing, other tests like the acl_rsi (readiness to return to sport) or sh_lsi (single hop LSI) are filled.\n",
+        "\n",
+        "## Descriptive Statistics & Distributions\n"
+      ],
+      "id": "9ecf2f3e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data.head()"
+      ],
+      "id": "7277b9c0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "#### Extension LSI and Flexion LSI\n"
+      ],
+      "id": "3e4fec59"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Let's see the summary stats for knee extension lsi and knee flexion lsi, \n",
+        "# this would show how symmetric the uninjured and injured limbs are when \n",
+        "# extending and flexing the leg\n",
+        "\n",
+        "table = pd.DataFrame(data['lsi_ext_isok_60'].describe())\n",
+        "display(table)\n",
+        "\n",
+        "table = pd.DataFrame(data['lsi_flex_isok_60'].describe())\n",
+        "display(table)\n",
+        "\n",
+        "data['lsi_flex_isok_60'].isnull().sum()\n",
+        "\n",
+        "# It seems that patients generally seem to do better in flexion than extension, as the \n",
+        "# mean is higher and the 75th percentile is also higher."
+      ],
+      "id": "5bbe22e5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# We made a kde plot for both lsi extension and lsi flexion to understand what \n",
+        "# their basic distributions look like\n",
+        "\n",
+        "d1 = data[['lsi_ext_isok_60', 'lsi_flex_isok_60']]\n",
+        "sns.kdeplot(d1, multiple='stack')\n",
+        "plt.title('KDE of Isokinetic Knee Extension and Flexion LSI')\n",
+        "plt.xlim(0, 250)\n",
+        "plt.tick_params(axis='y', which='both',length=0)\n",
+        "plt.tick_params(axis='x', which='both',length=0)\n",
+        "plt.gca().spines['top'].set_visible(False)\n",
+        "plt.gca().spines['right'].set_visible(False)\n",
+        "plt.gca().spines['left'].set_visible(False)\n",
+        "\n",
+        "# There are less flexion measurements overall compared to extension, \n",
+        "# and the flexion lsi values are slightly higher than extension lsi, \n",
+        "# though they both have unimodal peaks"
+      ],
+      "id": "ab22f2cb",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Examine Correlations\n",
+        "\n",
+        "...\n"
+      ],
+      "id": "66ddecaa"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sns.scatterplot(data=data, x='lsi_ext_isok_60', y='lsi_flex_isok_60')\n",
+        "plt.title('Relationship in Flexion and Extension LSI')\n",
+        "plt.xlabel('Extension LSI')\n",
+        "plt.ylabel('Flexion LSI')\n",
+        "plt.tick_params(axis='y', which='both',length=0)\n",
+        "plt.tick_params(axis='x', which='both',length=0)\n",
+        "plt.gca().spines['top'].set_visible(False)\n",
+        "plt.gca().spines['right'].set_visible(False)\n",
+        "plt.gca().spines['left'].set_visible(False)\n",
+        "plt.gca().spines['bottom'].set_visible(False)\n",
+        "plt.ylim(0,200)\n",
+        "plt.xlim(0,200)\n",
+        "\n",
+        "# By plotting the LSIs for flexion and extension, it may look like a blob at first, but \n",
+        "# there seems to be a little bit of a positive correlation.\n",
+        "# This shows that perhaps Flexion and Extension LSIs tend to be similar for many patients."
+      ],
+      "id": "943414d8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "#### Flexion LSI Over Time\n"
+      ],
+      "id": "2f2798ee"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data['redcap_event_name'].value_counts()"
+      ],
+      "id": "9968c25b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data['lsi_flex_isok_60'].groupby(data['redcap_event_name']).mean()"
+      ],
+      "id": "fad3768c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "From these tables, we can see that though the number of patients decreases over vists. On average, patients' LSI for flexion strength increases over time. Let's see this more clearly through a line graph.\n"
+      ],
+      "id": "7c00b508"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "mean_lsi_f = data_clean.groupby('redcap_event_name')['lsi_flex_isok_60'].mean().reset_index()\n",
+        "\n",
+        "visit_order = ['visit_1_arm_1', 'visit_2_arm_1', 'visit_3_arm_1', 'visit_4_arm_1', 'visit_5_arm_1', 'visit_6_arm_1', 'visit_7_arm_1', 'visit_8_arm_1', 'visit_9_arm_1']\n",
+        "mean_lsi_f['redcap_event_name'] = pd.Categorical(\n",
+        "    mean_lsi_f['redcap_event_name'], \n",
+        "    categories=visit_order, \n",
+        "    ordered=True\n",
+        ")\n",
+        "mean_lsi_f = mean_lsi_f.sort_values('redcap_event_name')\n",
+        "\n",
+        "visit_map = {\n",
+        "    'visit_1_arm_1': 1,\n",
+        "    'visit_2_arm_1': 2,\n",
+        "    'visit_3_arm_1': 3,\n",
+        "    'visit_4_arm_1': 4,\n",
+        "    'visit_5_arm_1': 5,\n",
+        "    'visit_6_arm_1': 6,\n",
+        "    'visit_7_arm_1': 7,\n",
+        "    'visit_8_arm_1': 8,\n",
+        "    'visit_9_arm_1': 9,\n",
+        "}\n",
+        "\n",
+        "mean_lsi_f['visit_num'] = mean_lsi_f['redcap_event_name'].map(visit_map)\n",
+        "mean_lsi_f['visit_num'] = pd.to_numeric(mean_lsi_f['visit_num'], errors='coerce').astype('Int64')\n",
+        "\n",
+        "\n",
+        "# Plot\n",
+        "plt.figure(figsize=(6, 4))\n",
+        "plt.plot(mean_lsi_f['visit_num'].astype(str), mean_lsi_f['lsi_flex_isok_60'], marker='o')\n",
+        "plt.title('Mean Flexion LSI Across Visits (All Patients)')\n",
+        "plt.xlabel('Visit')\n",
+        "plt.ylabel('Mean Isokinetic Knee Flexion (sh_lsi)')\n",
+        "plt.grid(axis='y')\n",
+        "\n",
+        "#plt.ylim(0, 2.5)"
+      ],
+      "id": "1219d36c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Explore Relationships\n",
+        "\n",
+        "#### Extension LSI and Sex\n"
+      ],
+      "id": "1200351c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sns.boxplot(x='sex_dashboard', y='lsi_ext_isok_60', data=data, hue='sex_dashboard')\n",
+        "plt.title('Are there differences in Extension LSI between sex?')\n",
+        "plt.xlabel('Isokinetic knee extension symmetry')\n",
+        "plt.ylabel('Sex')\n",
+        "plt.tick_params(axis='y', which='both',length=0)\n",
+        "plt.tick_params(axis='x', which='both',length=0)\n",
+        "plt.ylim(0, 140)\n",
+        "plt.show()\n",
+        "\n",
+        "sns.boxplot(x='sex_dashboard', y='lsi_flex_isok_60', data=data, hue='sex_dashboard')\n",
+        "plt.title('Are there differences in Flexion LSI between sex?')\n",
+        "plt.xlabel('Isokinetic knee flexion symmetry')\n",
+        "plt.ylabel('Sex')\n",
+        "plt.tick_params(axis='y', which='both',length=0)\n",
+        "plt.tick_params(axis='x', which='both',length=0)\n",
+        "plt.ylim(0, 140)\n",
+        "plt.show()\n",
+        "\n",
+        "# We thought comparing some assessments/tests by sex might be meaningful due to \n",
+        "# possible recovery differences\n",
+        "# After making boxplots grouped by sex for lsi, the sexes seem to perform more \n",
+        "# similarly for flexion lsi than extension lsi. \n",
+        "# For extension lsi, the percentiles and mean values for female are slightly lower than \n",
+        "# male, though we're not sure how significant this is."
+      ],
+      "id": "61a8d0be",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "#### Single Hop LSI between Age Groups\n"
+      ],
+      "id": "e2b77832"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sns.violinplot(data=data, y='sh_lsi', x='age_group')\n",
+        "plt.title('Differences in Flexion for Age Groups')\n",
+        "plt.xlabel('Age Group')\n",
+        "plt.ylabel('Isokinetic knee flexion')\n",
+        "plt.tick_params(axis='y', which='both',length=0)\n",
+        "plt.tick_params(axis='x', which='both',length=0)\n",
+        "plt.ylim(50, 130)\n",
+        "\n",
+        "# It is important to note that the study has age groups, from younger to older\n",
+        "# As the ages increase, the single hop LSI decreases and then increases again"
+      ],
+      "id": "cadd891c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data.head()\n",
+        "data['sh_lsi'].groupby(data['age_group']).mean()"
+      ],
+      "id": "14333f13",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We can see that the mean of single hop lsi per group somewhat decreases, where age groups 6 and 7 have the lowest symmetry.\n"
+      ],
+      "id": "a4ea1b42"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/jessicani/anaconda3/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

@@ -56,16 +56,18 @@ sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)
 
 Record id and event description have no missing values. It seems that many of the numerical measurements are missing. Due to site-specific data collection differences, there are more missing values for tests relating to 60 degrees/sec. In relation to our dataset, this includes two variables: LSI for isokinetic extension and LSI for isokinetic flexion strength. We decided to drop rows with missing values in these columns. 
 
-```{python}
-data = data.dropna(subset=['lsi_ext_isok_60', 'lsi_flex_isok_60'])
-```
-
-Additionally, our dataset is longitudinal and patients come in at irregular time intervals. There are multiple entries per patient, but some variables like sex are not recorded each visit. Thus, we can fill in data that is already known based on the subject's first entry.
+But first, we must fill in the sex column. This is because, our dataset is longitudinal and patients come in at irregular time intervals. There are multiple entries per patient, but some variables like sex are not recorded each visit. Thus, we can fill in data that is already known based on the subject's first entry.
 
 ```{python}
 # We can fill in known cells, such as the sex based on the first occurrence 
 data['sex_dashboard'] = data.groupby('record_id')['sex_dashboard'].transform('first')
-data['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')
+#data['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')
+```
+
+Then, let's drop the NAs.
+
+```{python}
+data = data.dropna(subset=['lsi_ext_isok_60', 'lsi_flex_isok_60'])
 ```
 
 Next, we noticed that within the event column, the first event called baseline_arm_1 only includes a patient's sex and has missing values for everything else. So, we will remove all rows where this is the event.

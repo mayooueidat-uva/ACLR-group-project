@@ -19,7 +19,7 @@ book:
   chapters:
     - index.qmd
     - ./EDA/datacleaning_forbook.qmd
-    - ,/EDA/Group_EDA_addchangeshere_ver2.qmd
+    - ./EDA/EDA_book.qmd
     - ./Graphs/Visualizations_book.qmd
     - ./datadictionary.qmd
 
