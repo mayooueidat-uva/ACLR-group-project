@@ -1,5 +1,5 @@
 ---
-title: ACLR Data Group Exploratory Data Analysis
+title: Exploratory Data Analysis
 jupyter: python3
 ---
 
