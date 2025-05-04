@@ -1,0 +1,335 @@
+---
+title: ACLR Data Group Exploratory Data Analysis
+jupyter: python3
+---
+
+### Jessica Ni, Maya Uwaydat, Wissal Khlouf
+
+
+## Audience/Stakeholder
+
+Our report is intended for a general audience, and we hope to make it comprehensible for people aged 12-20 like the patients represented in the study. We will simplify medical jargon and create streamlined data visualizations in formats familiar to most people, but most importantly, the patient reading their report. 
+
+## Problem Statement
+
+Young athletes who have undergone ACLR may find it difficult to interpret their recovery and performance data, especially when presented with technical terms. How can we educate young athletes about their recovery progress and expectations of athletic performance based on patients similar to them?
+
+## Important Variables
+
+#### acl_rsi
+* Anterior cruciate ligament return-to-sport after injury survey. Patients are given a survey (the “ACL-RSI” survey) where they answer questions related to “appraisal,” “confidence,” and “emotions,” and their psychological readiness score is calculated out of one hundred points. Though our report largely focuses on athletes’ performance after ACLR, psychological readiness remains relevant because suffering an athletic injury and undergoing surgery will affect a person beyond the physical dimension of their sport. 
+
+#### lsi_ext_isok_60
+* Limb symmetry index (abbreviated as “`lsi`” in our variable names) for isokinetic (“`isok`”) extension strength (“`ext`”) at a sixty-degree angle (“`60`”). We choose to include `lsi_ext_isok_60` as an objective measure of athletes’ strength post-ACLR (which would relate to athletic performance).
+  * Isokinetic strength is measured in torque. 
+  * Limb symmetry index is a percentage value calculated by measuring the torque of the involved (i.e. affected) limb, measuring the torque of the contralateral limb, dividing the involved limb value by the contralateral limb value, and multiplying by one hundred. 
+  * The patient bends their leg backwards sixty degrees for isokinetic strength measurements. 
+
+#### lsi_flex_isok_60
+* Limb symmetry index (“`lsi`”) for isokinetic (“`isok`”) flexion strength (“`flex`”) at a sixty-degree angle (“`60`”). The patient bends their leg forward sixty degrees (i.e. back its original position) for isokinetic strength measurements, but limb symmetry index is calculated the same way. We include `lsi_flex_isok_60` in our report for the same purpose as `lsi_ext_isok_60`. 
+
+#### sh_lsi
+* "Single hop" ("`sh`") limb symmetry index ("`lsi`"). Included in our dataset because it measures patients’ abilities while they are engaged in movements similar to when they play sports.
+  * a patient hopped once on their afflicted limb, then they hopped once on the contralateral limb. 
+  * The hop distances were taken in metres, and the involved limb value was divided by the contralateral limb value and multiplied by one hundred. 
+
+Notably, our dataset did not contain a control group that did not undergo ACLR, so we cannot assess the benefits of the procedure from our data alone. 
+
+## Understanding and Cleaning Dataset
+
+```{python}
+# import libraries
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import seaborn as sns
+```
+
+```{python}
+# Load in data
+data = pd.read_csv('../data/aclr_data.csv')
+data.head()
+```
+
+```{python}
+# Let's see the shape.
+data.shape
+# 11149 observations and 63 features
+```
+
+```{python}
+# That is a lot of observations. Are there 11149 separate patients?
+print(data['record_id'].nunique())
+results1 = data['record_id'].value_counts().describe()
+
+table = pd.DataFrame(results1) # this will show the results as a table format
+display(table) 
+
+# We see that there are 4739 unique patients and each patient may have multiple entries
+# Subjects have an average of 2 visits
+```
+
+```{python}
+# Seeing what variables we are working with 
+# (Just to check which are categorical)
+
+data.select_dtypes(include=['object', 'category', 'string']).head(n=3)
+```
+
+```{python}
+# This will which variables are numerical/continuous.
+
+data.select_dtypes(include=['int64', 'float64']).head(n=3)
+```
+
+```{python}
+# First, let's keep only the columns we are interested in
+data = data[['record_id', 'redcap_event_name', 'sex_dashboard', 'visit_sex', 'age', 'age_group', 'acl_rsi', 'lsi_ext_isok_60', 'lsi_flex_isok_60', 'sh_lsi', 'rts', 'rts_tss']]
+```
+
+```{python}
+# Let's make sure all the columns are the correct data type
+data.info()
+```
+
+```{python}
+# Let's spot missing values
+data.isnull().sum()
+```
+
+```{python}
+# Let's visualize where the missing values lie
+sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)
+
+# The yellow values show missing information.
+# Record ID and event description have no missing values
+# It seems that many of the numerical measurements are missing, likely because there are multiple entries per subject.
+```
+
+```{python}
+# Let's start by filling data that is already known based on the subject's first entry
+
+# Since we know that there are multiple entries per subject and each entry has at least an ID associated with it, 
+# We will start by filling in known cells, such as the sex based on the first occurrence 
+
+# Here, for each patient, we filled in sex based on the sex listed in their first visit
+
+data['sex_dashboard'] = data.groupby('record_id')['sex_dashboard'].transform('first')
+data['sex_dashboard'] = data['sex_dashboard'].fillna('Unknown')
+```
+
+```{python}
+# Next, we noticed that within the event column, the first event called baseline_arm_1 has missing values for everything except the patient's sex,
+# So, we will remove all of those observations since we already filled in sex in the code chunk above
+data[data['redcap_event_name'] == 'baseline_arm_1'].head()
+
+data = data[data['redcap_event_name'] != 'baseline_arm_1']
+```
+
+```{python}
+# Additionally, where there is an event called long_term_outcomes_arm_1, it just includes two pieces of information called rts (return to sport) 
+# and rts_tss, so we will move those values to its own dataframe if needed later
+data = data.drop(columns=['rts', 'rts_tss'])
+
+rts_df = data[data['redcap_event_name'] == 'long_term_outcomes_arm_1']
+data = data[data['redcap_event_name'] != 'long_term_outcomes_arm_1']
+```
+
+```{python}
+# Drop extra sex column
+data = data.drop(columns=['visit_sex'])
+```
+
+```{python}
+# Let's make sure nothing is duplicated
+data.duplicated().value_counts()
+```
+
+```{python}
+# Let's check how the missing values look now! 
+sns.heatmap(data.isnull(), cmap='viridis', yticklabels=False)
+# It looks much better. 
+```
+
+Our dataset is longitudinal, and patients come in at irregular time intervals. Missing values for certain tests (like LSI or hop tests) during later visits are very common because not all tests are performed at each visit (meaning NaNs are not random). 
+
+We have decided to leave missing values without imputing them. Usually, test outcomes should improve as a patient is recovering, but if we imputed with mean values, that may distort the pattern of recovery. Not imputing helps us avoid making assumptions about missing data.
+
+Additionally, missing data may signify patient recovery. If a patient skips a test, that may mean they are recovering at a pace at which the test is not needed.
+
+```{python}
+data[data['lsi_ext_isok_60'].isna()].head()
+```
+
+To illustrate the idea, we can see in the table above that there are missing values for limb symmetry index, and that the patient does not perform every test each doctor's visit. We can see that even though one test is missing, other tests like the acl_rsi (readiness to return to sport) or sh_lsi (single hop LSI) are filled.
+
+## Descriptive Statistics & Distributions
+
+```{python}
+data.head()
+```
+
+#### Extension LSI and Flexion LSI
+
+```{python}
+# Let's see the summary stats for knee extension lsi and knee flexion lsi, 
+# this would show how symmetric the uninjured and injured limbs are when 
+# extending and flexing the leg
+
+table = pd.DataFrame(data['lsi_ext_isok_60'].describe())
+display(table)
+
+table = pd.DataFrame(data['lsi_flex_isok_60'].describe())
+display(table)
+
+data['lsi_flex_isok_60'].isnull().sum()
+
+# It seems that patients generally seem to do better in flexion than extension, as the 
+# mean is higher and the 75th percentile is also higher.
+```
+
+```{python}
+# We made a kde plot for both lsi extension and lsi flexion to understand what 
+# their basic distributions look like
+
+d1 = data[['lsi_ext_isok_60', 'lsi_flex_isok_60']]
+sns.kdeplot(d1, multiple='stack')
+plt.title('KDE of Isokinetic Knee Extension and Flexion LSI')
+plt.xlim(0, 250)
+plt.tick_params(axis='y', which='both',length=0)
+plt.tick_params(axis='x', which='both',length=0)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+
+# There are less flexion measurements overall compared to extension, 
+# and the flexion lsi values are slightly higher than extension lsi, 
+# though they both have unimodal peaks
+```
+
+## Examine Correlations
+
+...
+
+```{python}
+sns.scatterplot(data=data, x='lsi_ext_isok_60', y='lsi_flex_isok_60')
+plt.title('Relationship in Flexion and Extension LSI')
+plt.xlabel('Extension LSI')
+plt.ylabel('Flexion LSI')
+plt.tick_params(axis='y', which='both',length=0)
+plt.tick_params(axis='x', which='both',length=0)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+plt.ylim(0,200)
+plt.xlim(0,200)
+
+# By plotting the LSIs for flexion and extension, it may look like a blob at first, but 
+# there seems to be a little bit of a positive correlation.
+# This shows that perhaps Flexion and Extension LSIs tend to be similar for many patients.
+```
+
+#### Flexion LSI Over Time
+
+```{python}
+data['redcap_event_name'].value_counts()
+```
+
+```{python}
+data['lsi_flex_isok_60'].groupby(data['redcap_event_name']).mean()
+```
+
+From these tables, we can see that though the number of patients decreases over vists. On average, patients' LSI for flexion strength increases over time. Let's see this more clearly through a line graph.
+
+```{python}
+mean_lsi_f = data_clean.groupby('redcap_event_name')['lsi_flex_isok_60'].mean().reset_index()
+
+visit_order = ['visit_1_arm_1', 'visit_2_arm_1', 'visit_3_arm_1', 'visit_4_arm_1', 'visit_5_arm_1', 'visit_6_arm_1', 'visit_7_arm_1', 'visit_8_arm_1', 'visit_9_arm_1']
+mean_lsi_f['redcap_event_name'] = pd.Categorical(
+    mean_lsi_f['redcap_event_name'], 
+    categories=visit_order, 
+    ordered=True
+)
+mean_lsi_f = mean_lsi_f.sort_values('redcap_event_name')
+
+visit_map = {
+    'visit_1_arm_1': 1,
+    'visit_2_arm_1': 2,
+    'visit_3_arm_1': 3,
+    'visit_4_arm_1': 4,
+    'visit_5_arm_1': 5,
+    'visit_6_arm_1': 6,
+    'visit_7_arm_1': 7,
+    'visit_8_arm_1': 8,
+    'visit_9_arm_1': 9,
+}
+
+mean_lsi_f['visit_num'] = mean_lsi_f['redcap_event_name'].map(visit_map)
+mean_lsi_f['visit_num'] = pd.to_numeric(mean_lsi_f['visit_num'], errors='coerce').astype('Int64')
+
+
+# Plot
+plt.figure(figsize=(6, 4))
+plt.plot(mean_lsi_f['visit_num'].astype(str), mean_lsi_f['lsi_flex_isok_60'], marker='o')
+plt.title('Mean Flexion LSI Across Visits (All Patients)')
+plt.xlabel('Visit')
+plt.ylabel('Mean Isokinetic Knee Flexion (sh_lsi)')
+plt.grid(axis='y')
+
+#plt.ylim(0, 2.5)
+```
+
+## Explore Relationships
+
+#### Extension LSI and Sex
+
+```{python}
+sns.boxplot(x='sex_dashboard', y='lsi_ext_isok_60', data=data, hue='sex_dashboard')
+plt.title('Are there differences in Extension LSI between sex?')
+plt.xlabel('Isokinetic knee extension symmetry')
+plt.ylabel('Sex')
+plt.tick_params(axis='y', which='both',length=0)
+plt.tick_params(axis='x', which='both',length=0)
+plt.ylim(0, 140)
+plt.show()
+
+sns.boxplot(x='sex_dashboard', y='lsi_flex_isok_60', data=data, hue='sex_dashboard')
+plt.title('Are there differences in Flexion LSI between sex?')
+plt.xlabel('Isokinetic knee flexion symmetry')
+plt.ylabel('Sex')
+plt.tick_params(axis='y', which='both',length=0)
+plt.tick_params(axis='x', which='both',length=0)
+plt.ylim(0, 140)
+plt.show()
+
+# We thought comparing some assessments/tests by sex might be meaningful due to 
+# possible recovery differences
+# After making boxplots grouped by sex for lsi, the sexes seem to perform more 
+# similarly for flexion lsi than extension lsi. 
+# For extension lsi, the percentiles and mean values for female are slightly lower than 
+# male, though we're not sure how significant this is.
+```
+
+#### Single Hop LSI between Age Groups
+
+```{python}
+sns.violinplot(data=data, y='sh_lsi', x='age_group')
+plt.title('Differences in Flexion for Age Groups')
+plt.xlabel('Age Group')
+plt.ylabel('Isokinetic knee flexion')
+plt.tick_params(axis='y', which='both',length=0)
+plt.tick_params(axis='x', which='both',length=0)
+plt.ylim(50, 130)
+
+# It is important to note that the study has age groups, from younger to older
+# As the ages increase, the single hop LSI decreases and then increases again
+```
+
+```{python}
+data.head()
+data['sh_lsi'].groupby(data['age_group']).mean()
+```
+
+We can see that the mean of single hop lsi per group somewhat decreases, where age groups 6 and 7 have the lowest symmetry.
+
