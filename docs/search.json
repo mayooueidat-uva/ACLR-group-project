@@ -154,7 +154,7 @@
     "href": "index.html#analysis",
     "title": "You’re Pulling My Leg:Visualizing a Patient’s ACLR Journey",
     "section": "Analysis",
-    "text": "Analysis\n[use storytelling and visuals to show how you are answering the problem]",
+    "text": "Analysis\nPatients have the right to understand their ACLR recovery without barriers that limit their comprehension.\nHaving the patient be able to picture themselves in the data is important, as we want for them to understand where they stand in recovery without explicitly knowing miniscule details about medical terminology. Sometimes, seeing yourself as a positive sloping line among a similarly trending population is enough to reassure that recovery is on track.\nThrough a line plot, a patient can visually see progression over multiple visits, allowing them to notice any irregularities that go against the general pattern, which is usually an increase in the recovery statistic. Additionally, having a background population of patients who also underwent ACL surgery acts as a comparison point, allowing a patient to compare themselves to a group of people who have gone through a similar recovery process.\n\nThis is a line graph that captures a single patient’s recovery progress for Flexion LSI. Additionally, it has Flexion LSI data over visits from all the patients in the study, which acts as a comparison point for the patient. The patient can easily view their individual recovery, alongside the overall recovery trend from other patients.\nThis line graph can be easily modified to show other recovery variables. This plot below is a continuation of the first line plot, and visualizes three Limb Symmetry Index (LSI) assessments for patient 109.",
     "crumbs": [
       "Report"
     ]
