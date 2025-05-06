@@ -6,7 +6,8 @@ Our dataset largely consists of patients aged 12 to 20, who represent our primar
 
 ## Problem Statement
 
-[Clearly define the problem you are addressing. Include background context and the significance of the issue. This is beginning of your story - plot setting. Can include a graph]
+ACL Reconstruction marks a crucial milestone on the journey back to full activity for our predominantly adolescent and young adult patients (ages 12–20), yet too often they’re handed mountains of clinical jargon and tables of Limb Symmetry Index scores that feel abstract and alienating. Without a way to “see themselves” in the data, seeing their own recovery line rise alongside a cohort of peers, patients risk drifting into uncertainty, losing confidence in their rehab plan, or even disengaging altogether. What we need instead is a set of interactive visualizations that place each individual’s progress front and center against meaningful benchmarks drawn from similar patients, transforming these numbers into a clear, reassuring narrative. By turning technical metrics into intuitive, story‑driven graphics, our goal is to empower patients to recognize their own upward trajectory, understand where they stand relative to others, and make informed decisions with confidence—ultimately replacing anxiety with motivation and ensuring that no one feels lost on their path to recovery.  
+
 
 ## Analysis
 
