@@ -2,11 +2,12 @@
 
 ## Audience
 
-Our dataset largely consists of patients aged 12 to 20, who represent our primary audience. However, there are a few patients who fall outside this age range. Therefore, our working audience includes all patients who have undergone ACL reconstruction surgery and can benefit from visual tools to understand their recovery. 
+Our dataset largely consists of patients aged 12 to 20, but some patients fall outside the typical age range. Therefore, our working audience includes all patients who have undergone ACL reconstruction surgery and can benefit from visual tools to understand their recovery.
+
 
 ## Problem Statement
 
-Young adult ACLR patients often confront dense jargon and tables of information and scores that obscure their true progress and drain motivation. We need intuitive, patient-centered visuals, showing each patient’s progress alongside peer ranges and age‑based comparisons, that turn numbers into an accessible visual storyline, boost confidence, and keep young athletes actively engaged in their rehabilitation. 
+ACLR patients often confront dense jargon and tables of information and scores that obscure their true progress and drain motivation. We need intuitive, patient-centered visuals, showing each patient’s progress alongside peer ranges and age‑based comparisons, that turn numbers into accessible visual stories and keep young athletes confident in their rehabilitation.
 
 ## Analysis
 
