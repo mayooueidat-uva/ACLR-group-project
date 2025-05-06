@@ -206,11 +206,11 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Report</h1>
 <section id="audience" class="level2">
 <h2 class="anchored" data-anchor-id="audience">Audience</h2>
-<p>Our dataset largely consists of patients aged 12 to 20, but some patients fall outside the typical age range. Therefore, our working audience includes all patients who have undergone ACL reconstruction surgery and can benefit from visual tools to understand their recovery.</p>
+<p>Our dataset largely consists of patients aged 12 to 20, but some patients fall outside the typical age range. Therefore, our working audience includes all patients who have undergone anterior cruciate ligament reconstruction (ACLR) surgery and can benefit from visual tools to understand their recovery.</p>
 </section>
 <section id="problem-statement" class="level2">
 <h2 class="anchored" data-anchor-id="problem-statement">Problem Statement</h2>
-<p>ACLR patients often confront dense jargon and tables of information and scores that obscure their true progress and drain motivation. We need intuitive, patient-centered visuals that turn numbers into accessible visual stories and keep young athletes confident about, and actively engaged in, their rehabilitation.</p>
+<p>ACLR patients often confront dense jargon and tables of information and scores that obscure their true progress and drain motivation. We need intuitive, patient-centered visuals, showing each patient’s progress alongside peer ranges and age‑based comparisons, that turn numbers into accessible visual stories and keep young athletes confident in their rehabilitation.</p>
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
@@ -230,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="kde-plot" class="level3">
 <h3 class="anchored" data-anchor-id="kde-plot">KDE Plot</h3>
 <p>Though the line plot is useful for showcasing an individual patient’s progress over time, it is not effective for portraying the distribution of data; therefore, we want to use a kernel density estimate plot stratified by visit number. We excluded visits above 4, as most patients had fewer visits.</p>
-<p>Compared to line plots, the KDEplot is less familiar to our target audience, so our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are <em>more likely</em> to have higher ACL-RSI scores as time passes and reassure patients who fear they will never feel ready to return to sport.</p>
+<p>Compared to line plots, the KDEplot is less familiar to our target audience, so our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are <em>more likely</em> to have better scores as time passes and reassure patients who fear they will never feel ready to return to sport. Our example below uses ACL-RSI scores, which gauge psychological readiness to return to sport.</p>
 <p><img src="./Graphs/graph_images/kde_aclrsi.png" class="img-fluid"></p>
 </section>
 <section id="boxplot" class="level3">
