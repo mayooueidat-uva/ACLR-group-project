@@ -125,7 +125,7 @@ axs[0].plot(highlight_data['visit_num'].iloc[0], highlight_data['lsi_flex_isok_6
 axs[0].plot(highlight_data['visit_num'].iloc[3], highlight_data['lsi_flex_isok_60'].iloc[3], marker='o', color='#2DC653', markersize=6)
 
 # Add title and customize graph
-axs[0].set_title('Flexion', weight='bold', size=17, x=0.5, y=1.1, fontfamily='Sinhala Sangam MN')
+axs[0].set_title('Flexion Strength', weight='bold', size=17, x=0.53, y=1.1, fontfamily='Sinhala Sangam MN')
 axs[0].set_xlim(.8, 4.07)
 axs[0].set_xticks([1, 2, 3, 4])
 axs[0].set_ylim(76, 100)
@@ -156,7 +156,7 @@ axs[1].plot(highlight_data['visit_num'].iloc[0], highlight_data['lsi_ext_isok_60
 axs[1].plot(highlight_data['visit_num'].iloc[3], highlight_data['lsi_ext_isok_60'].iloc[3], marker='o', color='#2DC653', markersize=6)
 
 # Add title and customize graph
-axs[1].set_title('Extension', weight='bold', size=17, x=0.5, y=1.1, fontfamily='Sinhala Sangam MN')
+axs[1].set_title('Extension Strength', weight='bold', size=17, x=0.53, y=1.1, fontfamily='Sinhala Sangam MN')
 axs[1].set_xlim(.8, 4.07)
 axs[1].set_xticks([1, 2, 3, 4])
 axs[1].set_ylim(60, 100)
@@ -189,7 +189,7 @@ axs[2].plot(highlight_data['visit_num'].iloc[0], highlight_data['sh_lsi'].iloc[0
 axs[2].plot(highlight_data['visit_num'].iloc[3], interpolated_sh_lsi.iloc[3], marker='o', color='#2DC653', markersize=6)
 
 # Add title and customize graph
-axs[2].set_title('Single Hop', weight='bold', size=17, x=0.5, y=1.1, fontfamily='Sinhala Sangam MN')
+axs[2].set_title('Single Hop (Mobility)', weight='bold', size=17, x=0.53, y=1.1, fontfamily='Sinhala Sangam MN')
 axs[2].set_xlim(.8, 4.07)
 axs[2].set_xticks([1, 2, 3, 4])
 axs[2].set_ylim(70, 100)
@@ -208,7 +208,7 @@ plt.figtext(0.91, 0.285, "(Middle 50%)", size = 12, color='gray', fontfamily='Si
 # Overall graph customizations ---------------------------------------------------------------------------------------------------------------
 plt.figtext(0.182, 0.657, "st Visit ...", size = 11, color='black', fontfamily='Sinhala Sangam MN')
 plt.figtext(0.165, 0.08, "Note: Data from Patient ID 109", size=11, color='gray', fontfamily='Sinhala Sangam MN')
-plt.suptitle('Tracking Your LSI Measures Over Visits', weight='bold', fontfamily='Sinhala Sangam MN', size=25, x=0.55, y=.955)
+plt.suptitle('Tracking Your LSI Measures Over Visits', weight='bold', fontfamily='Sinhala Sangam MN', size=25, x=0.56, y=.955)
 plt.subplots_adjust(hspace=0.3)
 plt.subplots_adjust(hspace=0.3)
 
