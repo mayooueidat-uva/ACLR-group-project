@@ -29,7 +29,7 @@ We can prepare similar graphs for our patients with other variables of interest,
 
 Though the line plot is useful for showcasing an individual patient's progress over time, it is not effective for portraying the distribution of data; therefore, we want to use a kernel density estimate plot stratified by visit number. We excluded visits above 4, as most patients had fewer visits. 
 
-Compared to line plots, the KDEplot is less familiar to our target audience, so our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are *more likely* to have higher ACL-RSI scores as time passes and reassure patients who fear they will never feel ready to return to sport.
+Compared to line plots, the KDEplot is less familiar to our target audience, so our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are *more likely* to have better scores as time passes and reassure patients who fear they will never feel ready to return to sport. Our example below uses ACL-RSI scores, which gauge psychological readiness to return to sport.
 
 ![](./Graphs/graph_images/kde_aclrsi.png)
 
