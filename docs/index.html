@@ -158,7 +158,12 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#audience" id="toc-audience" class="nav-link" data-scroll-target="#audience">Audience</a></li>
   <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#line-plot" id="toc-line-plot" class="nav-link" data-scroll-target="#line-plot">Line Plot</a></li>
+  <li><a href="#kde-plot" id="toc-kde-plot" class="nav-link" data-scroll-target="#kde-plot">KDE Plot</a></li>
+  <li><a href="#boxplot" id="toc-boxplot" class="nav-link" data-scroll-target="#boxplot">Boxplot</a></li>
+  </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   </ul>
@@ -210,22 +215,34 @@ ul.task-list li input[type="checkbox"] {
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 <p>Patients have the right to understand their ACLR recovery without barriers that limit their comprehension.</p>
+<section id="line-plot" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot">Line Plot</h3>
 <p>Having the patient be able to <strong>picture themselves in the data</strong> is important, as we want for them to understand where they stand in recovery without explicitly knowing miniscule details about medical terminology. Sometimes, seeing yourself as a positive sloping line among a similarly trending population is enough to reassure that recovery is on track.</p>
-<p>Through a line plot, a patient can visually see progression over multiple visits, allowing them to notice any irregularities that go against the general pattern, which is usually an increase in the recovery statistic. Additionally, having a background population of patients who also underwent ACL surgery acts as a comparison point, allowing a patient to compare themselves to a group of people who have gone through a similar recovery process.</p>
+<p>With a line plot, a patient can easily see their recovery over multiple visits. Additionally, they can compare themselves to others who have also undergone ACLR and would have the ability to understand their progress without needing complex medical or statistics jargon.</p>
+<p>Below is a line graph that captures a single patient’s recovery progress for Flexion LSI. Additionally, it has Flexion LSI data over visits from all the patients in the study, which acts as a comparison point for the patient. The patient can easily view their individual recovery, alongside the overall recovery trend from other patients.</p>
 <p><img src="./Graphs/graph_images/lsi_flexion_line.png" class="img-fluid"></p>
-<p>This is a line graph that captures a single patient’s recovery progress for Flexion LSI. Additionally, it has Flexion LSI data over visits from all the patients in the study, which acts as a comparison point for the patient. The patient can easily view their individual recovery, alongside the overall recovery trend from other patients.</p>
-<p>This line graph can be easily modified to show other recovery variables. This plot below is a continuation of the first line plot, and visualizes three Limb Symmetry Index (LSI) assessments for patient 109.</p>
+<p>We can prepare similar graphs for our patients with other variables of interest, shown below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="./Graphs/graph_images/line_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
 </figure>
 </div>
+</section>
+<section id="kde-plot" class="level3">
+<h3 class="anchored" data-anchor-id="kde-plot">KDE Plot</h3>
+<p>Though the line plot is useful for showcasing an individual patient’s progress over time, it is not effective for portraying the distribution of data; therefore, we want to use a kernel density estimate plot stratified by visit number. We excluded visits above 4, as most patients had fewer visits.</p>
+<p>Compared to line plots, the KDEplot is less familiar to our target audience, so our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are <em>more likely</em> to have higher ACL-RSI scores as time passes and reassure patients who fear they will never feel ready to return to sport.</p>
 <p><img src="./Graphs/graph_images/kde_aclrsi.png" class="img-fluid"></p>
+</section>
+<section id="boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="boxplot">Boxplot</h3>
+<p>The box plot allows patients to understand their data compared to different demographics. Each box pictured represents the interquartile range (IQR) of LSI Extension Strength (60°/s) within an age group, while the whiskers show variability and the dots highlight outliers. The visualization reassures patients that some variation is normal and that most people fall within a certain performance band, particularly as they progress in recovery. By stratifying the data by age group, we emphasize that strength recovery can vary with age, which is helpful for setting age-appropriate expectations during rehab.</p>
 <p><img src="./Graphs/graph_images/boxplots.png" class="img-fluid"></p>
+</section>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>[use storytelling to give your conclusions and/or action items, can include a visual]</p>
+<p>Our visualizations turn complex recovery metrics into a story that patients can instantly grasp. Clinicians can use them to share personalized plots at each visit, flagging dips against peer IQRs, reinforcing readiness gains, and setting realistic goals. Future interactive dashboards with filterable metrics and animated overlays, live sensor and EHR syncing, custom alerts, and predictive forecasts will empower swift data-driven action to keep every recovery on track.</p>
 
 
 </section>
