@@ -2,7 +2,7 @@
 
 ## Audience
 
-Our dataset largely consists of patients aged 12 to 20, but some patients fall outside the typical age range. Therefore, our working audience includes all patients who have undergone ACL reconstruction surgery and can benefit from visual tools to understand their recovery.
+Our dataset largely consists of patients aged 12 to 20, but some patients fall outside the typical age range. Therefore, our working audience includes all patients who have undergone anterior cruciate ligament reconstruction (ACLR) surgery and can benefit from visual tools to understand their recovery.
 
 
 ## Problem Statement
