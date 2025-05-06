@@ -25,6 +25,19 @@ This line graph can be easily modified to show other recovery variables. This pl
 
 ![](./Graphs/graph_images/line_series.png){width=40% fig-align="center"}
 
+
+
+
+
+![](./Graphs/graph_images/kde_aclrsi.png)
+
+
+
+
+![](./Graphs/graph_images/boxplots.png)
+
+
+
 ## Conclusion
 
 [use storytelling to give your conclusions and/or action items, can include a visual]

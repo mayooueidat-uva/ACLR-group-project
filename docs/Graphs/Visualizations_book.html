@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="An outline for the DS2023 Communicating with Data final project report.">
+<meta name="description" content="An outline for DS2023 Communicating with Data final project report.">
 
-<title>Visualizations – DS2023 Final Project (Rename)</title>
+<title>Visualizations – You’re Pulling My Leg:Visualizing a Patient’s ACLR Journey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="../logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">DS2023 Final Project (Rename)</a> 
+      <a href="../">You’re Pulling My Leg:<br>Visualizing a Patient’s ACLR Journey</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/mayooueidat-uva/ACLR-group-project/tree/main" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
@@ -217,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="c96afa53" class="cell" data-execution_count="1">
+<div id="dad07fcb" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="graph-1-flexion-lsi-over-time">Graph 1: Flexion LSI over time</h2>
 <p>When it comes to a <strong>patient</strong> understanding <strong>their</strong> ACLR recovery, being able to visually see changes across time makes understanding their recovery progress easier. Through a line plot, a patient can visually see that progression over multiple visits, allowing them to notice any irregularities that go against the general pattern, which is usually an increase in the recovery statistic. Additionally, having a background population of patients who also underwent ACLR surgery acts as a comparison point, allowing them to compare themselves to a group of people who have gone through a similar recovery process. Having the patient be able to picture themselves in the data is important, as we want for them to understand where they stand in recovery without explicitly knowing miniscule details about medical terminology. Sometimes, seeing yourself as a positive sloping line among a positive sloping population is enough to understand that recovery is going smoothly.</p>
 <p>This is a line graph that captures a single patient’s recovery progress for Flexion LSI (using a randomly chosen patient with at least 4 visits). Additionally, it has Flexion LSI data over visits from all the patients in the study, which acts as a comparison point for the patient. The population data is shaded to show the IQR, which is the 25th to 75th percentile. My goal is for the patient to be able to picture himself/herself in recovery and understand that test results usually get better over time.</p>
-<div id="edd832e2" class="cell" data-execution_count="2">
+<div id="75baa289" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot IQR 25 to 75, and fill the space between</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q25'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(flsi_percentiles[<span class="st">'visit_num'</span>], flsi_percentiles[<span class="st">'q75'</span>], color<span class="op">=</span><span class="st">"#E5E5E5"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.76</span>, <span class="st">'Your Progress'</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'#00A9FF'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.68</span>, <span class="st">"Other Patients' IQR"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.91</span>, <span class="fl">0.63</span>, <span class="st">"(Middle 50%)"</span>, size <span class="op">=</span> <span class="dv">12</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.182</span>, <span class="fl">0.0755</span>, <span class="st">"st Visit ..."</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.182</span>, <span class="fl">0.076</span>, <span class="st">"st Visit ..."</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.165</span>, <span class="fl">0.019</span>, <span class="st">"Note: Data from Patient ID 109"</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Customize graph</span></span>
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="graph-1-continued-line-plot-series" class="level2">
 <h2 class="anchored" data-anchor-id="graph-1-continued-line-plot-series">Graph 1 Continued: Line Plot Series</h2>
 <p>As a continuation from the first graph, this visualization shows subplots of three LSI (limb symmetry index) scores across visits. Patients may find it helpful to see how their different functional assessments differ. The goal of this graph is for the patient to easily see their improvements or deficiencies.</p>
-<div id="2308d306" class="cell" data-execution_count="3">
+<div id="4b838096" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data for subplots</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extension LSI</span></span>
@@ -318,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>sh_lsi_percentiles[<span class="st">'visit_num'</span>] <span class="op">=</span> sh_lsi_percentiles[<span class="st">'redcap_event_name'</span>].<span class="bu">map</span>(visit_map)</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>sh_lsi_percentiles <span class="op">=</span> sh_lsi_percentiles[sh_lsi_percentiles[<span class="st">'redcap_event_name'</span>] <span class="op">!=</span> <span class="st">'data_upload_arm_2'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9c591c9c" class="cell" data-execution_count="4">
+<div id="11a4782e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">3</span>,<span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">18</span>)) <span class="co"># set the figure size and have 3 small multiples within the figure</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>axs <span class="op">=</span> axs.flatten()</span>
@@ -339,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], highlight_data[<span class="st">'lsi_flex_isok_60'</span>].iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Flexion LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">'Flexion Strength'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.53</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim(<span class="dv">76</span>, <span class="dv">100</span>)</span>
@@ -370,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], highlight_data[<span class="st">'lsi_ext_isok_60'</span>].iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Extension LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">'Extension Strength'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.53</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
 <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim(<span class="dv">60</span>, <span class="dv">100</span>)</span>
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].plot(highlight_data[<span class="st">'visit_num'</span>].iloc[<span class="dv">3</span>], interpolated_sh_lsi.iloc[<span class="dv">3</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'#2DC653'</span>, markersize<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and customize graph</span></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="st">'Single Hop LSI Recovery Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.4</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="st">'Single Hop (Mobility)'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, size<span class="op">=</span><span class="dv">17</span>, x<span class="op">=</span><span class="fl">0.53</span>, y<span class="op">=</span><span class="fl">1.1</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_xlim(<span class="fl">.8</span>, <span class="fl">4.07</span>)</span>
 <span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_xticks([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
 <span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_ylim(<span class="dv">70</span>, <span class="dv">100</span>)</span>
@@ -422,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Overall graph customizations ---------------------------------------------------------------------------------------------------------------</span></span>
 <span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.182</span>, <span class="fl">0.657</span>, <span class="st">"st Visit ..."</span>, size <span class="op">=</span> <span class="dv">11</span>, color<span class="op">=</span><span class="st">'black'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
 <span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>plt.figtext(<span class="fl">0.165</span>, <span class="fl">0.08</span>, <span class="st">"Note: Data from Patient ID 109"</span>, size<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">'gray'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>)</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Tracking Your ...'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>, size<span class="op">=</span><span class="dv">30</span>, x<span class="op">=</span><span class="fl">0.39</span>, y<span class="op">=</span><span class="fl">.955</span>)</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Tracking Your LSI Measures Over Visits'</span>, weight<span class="op">=</span><span class="st">'bold'</span>, fontfamily<span class="op">=</span><span class="st">'Sinhala Sangam MN'</span>, size<span class="op">=</span><span class="dv">25</span>, x<span class="op">=</span><span class="fl">0.56</span>, y<span class="op">=</span><span class="fl">.955</span>)</span>
 <span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(hspace<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a></span>
@@ -441,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="graph-2-probability-distribution-of-acl-rsi-scores">Graph 2: Probability Distribution of ACL-RSI scores</h2>
 <p>Though the lineplot is useful for showcasing an individual patient’s progress over time, it is not effective for portraying the distribution of the ACL-RSI scores; therefore, we want to use a kernel density estimate plot stratified by visit number. We deliberately excluded 5th, 7th, 7th, 8th, and 9th visits to keep consistency with the line plots.</p>
 <p>Compared to line plots, the KDEplot is less familiar most people, and it will most certainly be unfamiliar to our target audience. Therefore, our graph includes an explanation of what it is supposed to portray. We hope that our visualization will demonstrate that people are <em>more likely</em> to have higher ACL-RSI scores as time passes and reassure patients who fear they will never feel ready to return to sport.</p>
-<div id="5d852db0" class="cell" data-execution_count="5">
+<div id="4b3bdda2" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting kernel density estimate plots</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">1</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#DDDDDD"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(data<span class="op">=</span>data.where(data[<span class="st">"visit_num"</span>]<span class="op">==</span><span class="dv">2</span>).dropna(), x<span class="op">=</span><span class="st">"acl_rsi"</span>, color<span class="op">=</span><span class="st">"#BBBBBB"</span>)</span>
@@ -485,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="graph-3-distribution-of-lsi-extension-strength-by-age-group" class="level2">
 <h2 class="anchored" data-anchor-id="graph-3-distribution-of-lsi-extension-strength-by-age-group">Graph 3: Distribution of LSI Extension Strength by Age Group</h2>
 <p>The box plot offers a more familiar and straightforward way to visualize data for our target audience of young athletes. Each box represents the interquartile range (IQR) of LSI Extension Strength (60°/s) within an age group, while the whiskers show variability and the dots highlight outliers. This format allows patients and their families to quickly understand how their strength compares to others in their age group. The visualization reassures patients that some variation is normal and that most people fall within a certain performance band, particularly as they progress in recovery. By stratifying the data by age group, we emphasize that strength recovery can vary with age, which is helpful for setting age-appropriate expectations during rehab.</p>
-<div id="1860647f" class="cell" data-execution_count="6">
+<div id="76c98ef0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">25</span>, <span class="dv">100</span>]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'10-12'</span>, <span class="st">'13-15'</span>, <span class="st">'16-18'</span>, <span class="st">'19-21'</span>, <span class="st">'22-25'</span>, <span class="st">'26+'</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'age_group'</span>] <span class="op">=</span> pd.cut(data[<span class="st">'age'</span>], bins<span class="op">=</span>bins, labels<span class="op">=</span>labels)</span>
@@ -540,7 +540,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Save final image</span></span>
 <span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'./graph_images/boxplots.png'</span>, bbox_inches<span class="op">=</span><span class="st">'tight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/y3/qpldbqrx2dn72lflj336s6l00000gn/T/ipykernel_85392/1802104442.py:15: FutureWarning:
+<pre><code>/var/folders/y3/qpldbqrx2dn72lflj336s6l00000gn/T/ipykernel_24388/1802104442.py:15: FutureWarning:
 
 
 
